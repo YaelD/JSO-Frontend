@@ -1,14 +1,25 @@
 import React from "react";
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
 import Header from "./Header";
 import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
+import SideBar from "./SideBar";
 
 function App() {
   return (
-    <div className="App">
+    <>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
         <Header />
-        <SignUp />
-    </div>
+        <SideBar />
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Toolbar />
+          {/* TODO: here will be the content of the page */}
+        </Box>
+      </Box>
+    </>
   );
 }
 
