@@ -6,6 +6,7 @@ import Header from "./Header";
 import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
 import SideBar from "./SideBar";
+import PendingProcesses from "../pages/PendingProcesses";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <SideBar />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <Toolbar />
+          <PendingProcesses />
           {/* TODO: here will be the content of the page */}
         </Box>
       </Box>
