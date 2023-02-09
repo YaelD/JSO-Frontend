@@ -1,19 +1,19 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-
 export default function Header(){
+    
     return(
         <>
             <AppBar
-                position="static"
                 color="default"
+                position="fixed"
                 elevation={0}
-                sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
+                // sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
+                sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
             >
                 <Toolbar sx={{ flexWrap: 'wrap' }}>
                     <Box
@@ -26,12 +26,6 @@ export default function Header(){
                     />
                     <Typography sx={{ flexGrow: 1 }}>
                     </Typography>
-                    <Button href="#" variant="outlined" sx={{ my: 1, mx: 1.5 }}>
-                        Jobs
-                    </Button>
-                    <Button href="#" variant="outlined" sx={{ my: 1, mx: 1.5 }}>
-                        networking
-                    </Button>
                 </Toolbar>
             </AppBar>
         </>
