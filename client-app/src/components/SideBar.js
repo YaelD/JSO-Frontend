@@ -1,15 +1,15 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import SideBarItem from './SideBarItem';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Collapse from '@mui/material/Collapse';
-import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
-import WorkOffIcon from '@mui/icons-material/WorkOff';
 import WorkIcon from '@mui/icons-material/Work';
-import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
-import SideBarItem from './SideBarItem';
 import PeopleIcon from '@mui/icons-material/People';
+import WorkOffIcon from '@mui/icons-material/WorkOff';
+import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
 
 
 const drawerWidth = 240;
@@ -26,7 +26,7 @@ class SideBarButtons {
 
 export default function SideBar() {
 
-  const [isExtended, setIsExtended] = React.useState(true);
+  const [isExtended, setIsExtended] = useState(true);
 
   const nestedListOfButtons = [
     new SideBarButtons("Pending", <WorkHistoryIcon />, null, true),
@@ -51,11 +51,9 @@ export default function SideBar() {
     return(
       <SideBarItem 
         handleListItemClick={()=>{handleListItemClick(item.text);}}
-        icon={item.icon}
-        text={item.text}
+        item={item}
         isExtended={isExtended}
         key={item.text}
-        isInsideSubList={item.isInsideSubList}
       />
     );
   }
@@ -64,30 +62,20 @@ export default function SideBar() {
     return(
       list.map((item, index) => {
         return (
-          <>
+          <div key={index}>
           {renderItem(item, index)}
-          {item.subMenuButtons !== null && renderSubListItems(item.subMenuButtons)}
-          </>
+          {item.subMenuButtons !== null &&
+            <Collapse in={isExtended} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                {item.subMenuButtons.map((item, index) => {
+                  return renderItem(item, index);
+                })}
+              </List>
+            </Collapse>
+          }
+          </div>
         );
       })
-    );
-  }
-
-  function renderSubListItems(subMenuItems){
-    return (
-      <>
-        <Collapse in={isExtended} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            {subMenuItems.map((item, index) => {
-              return (
-                <>
-                  {renderItem(item, index)}
-                </> 
-              );
-            })}
-          </List>
-        </Collapse>
-      </>
     );
   }
 
