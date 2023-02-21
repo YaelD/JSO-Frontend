@@ -1,17 +1,17 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import Table from '@mui/material/Table';
+import positions from '../testData/position';
+import { styled } from '@mui/material/styles';
+import TableRow from '@mui/material/TableRow';
+import TableBody from '@mui/material/TableBody';
+import TableHead from '@mui/material/TableHead';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
+import TableContainer from '@mui/material/TableContainer';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import Stack from '@mui/material/Stack';
-import rows from '../testData/data';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -69,15 +69,15 @@ export default function JobsTable() {
   function renderTableRows(){
     return (
       <>
-      {rows.map((row)=>{
+      {positions.map((position)=>{
         return(
-          <StyledTableRow key={row.id}>
-            <StyledTableCell sx={{width: 0.2, paddingLeft: 5}} align="left">{row.companyName}</StyledTableCell>
-            <StyledTableCell sx={{width: 0.2}} align="left">{row.position}</StyledTableCell>
-            <StyledTableCell sx={{width: 0.2, paddingLeft: 4}} align="left">{row.connections}</StyledTableCell>
-            <StyledTableCell sx={{width: 0.2}} align="left">{row.status}</StyledTableCell>
+          <StyledTableRow key={position.id}>
+            <StyledTableCell sx={{width: 0.2, paddingLeft: 5}} align="left">{position.positionInfo.companyName}</StyledTableCell>
+            <StyledTableCell sx={{width: 0.2}} align="left">{position.positionInfo.role}</StyledTableCell>
+            <StyledTableCell sx={{width: 0.2, paddingLeft: 4}} align="left">{position.positionInfo.connections}</StyledTableCell>
+            <StyledTableCell sx={{width: 0.2}} align="left">{position.positionInfo.status}</StyledTableCell>
             <StyledTableCell align="left" sx={{width: 0.2, paddingRight: 5}}>
-              {renderActionCellContent(row)}
+              {renderActionCellContent(position)}
             </StyledTableCell>
           </StyledTableRow>
         );
@@ -86,13 +86,13 @@ export default function JobsTable() {
     );
   }
 
-  function renderActionCellContent(row){
+  function renderActionCellContent(position){
     return(
       <Stack direction="row" spacing={1}>
-        <IconButton onClick={()=>{handleEditClick(row.id)}}>
+        <IconButton onClick={()=>{handleEditClick(position.id)}}>
           <EditIcon />
         </IconButton>
-        <IconButton onClick={()=>{handleViewClick(row.id)}}>
+        <IconButton onClick={()=>{handleViewClick(position.id)}}>
           <VisibilityIcon />
         </IconButton>
       </Stack>
