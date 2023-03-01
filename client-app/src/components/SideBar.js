@@ -1,16 +1,36 @@
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
-import SideBarItem from './SideBarItem';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import Collapse from '@mui/material/Collapse';
 import WorkIcon from '@mui/icons-material/Work';
 import PeopleIcon from '@mui/icons-material/People';
+import ListItemText from '@mui/material/ListItemText';
 import WorkOffIcon from '@mui/icons-material/WorkOff';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import ListItemButton from '@mui/material/ListItemButton';
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
 
+function SideBarItem({ item, handleListItemClick, isExtended}) {
+
+  return (
+      <ListItemButton
+          sx={{pl: item.isInsideSubList === true ? 5 : 2 }}
+          onClick={handleListItemClick}
+      >
+          <ListItemIcon>
+              {item.icon}
+          </ListItemIcon>
+      <ListItemText primary={item.text} />
+      {item.text === "Processes" ? (isExtended ? <ExpandLess /> : <ExpandMore />) : null}
+      
+      </ListItemButton>
+  );
+}
 
 const drawerWidth = 240;
 
@@ -39,12 +59,10 @@ export default function SideBar() {
     new SideBarButtons("Networking", <PeopleIcon />, null, false),
   ];
 
-//TODO: here need to render the corresponding page content according the button that was clicked
   function handleListItemClick(page){
     if(page === "Processes"){
       setIsExtended(!isExtended);
     }
-    console.log(page);
   }
 
   function renderItem(item, index){
@@ -62,7 +80,7 @@ export default function SideBar() {
     return(
       list.map((item, index) => {
         return (
-          <div key={index}>
+          <div key={item.text}>
           {renderItem(item, index)}
           {item.subMenuButtons !== null &&
             <Collapse in={isExtended} timeout="auto" unmountOnExit>

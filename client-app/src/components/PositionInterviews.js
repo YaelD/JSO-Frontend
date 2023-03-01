@@ -5,38 +5,49 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import AddIcon from '@mui/icons-material/Add';
 import { CardActionArea } from '@mui/material';
+import CardHeader from '@mui/material/CardHeader';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
+import DeleteIcon from '@mui/icons-material/Delete';
 import InterviewInfoPopup from './InterviewInfoPopup';
-import { InterviewContext } from '../contexts/InterviewContext';
+import { InterviewContext } from '../contexts/PositionContexts';
 
 
 function InterviewCard({ interview, index }){
-    const [open, setOpen] = useState(false);
+    const [openPopupForEdit, setOpenPopupForEdit] = useState(false);
 
-    const handleClickOpen = () => {
-      setOpen(true);
+    const handleOpenPopup = () => {
+        setOpenPopupForEdit(true);
     };
   
-    const handleClose = () => {
-      setOpen(false);
+    const handleClosePopup = () => {
+        setOpenPopupForEdit(false);
     };
 
     return (
         <Card sx={{ width: 275 }} >
-            <CardActionArea onClick={handleClickOpen}>
+            <CardActionArea onClick={handleOpenPopup}>
+            <CardHeader
+                action={
+                    <IconButton aria-label="delete" name="deleteButton" onClick={(event)=>{
+                        alert("card deleted");
+                        event.stopPropagation();
+                        }}>
+                        <DeleteIcon />
+                    </IconButton>
+                }
+                subheader={interview.date}
+            />
                 <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        {interview.date}
-                    </Typography>
                     <Typography variant="h6" component="div">
                         {interview.title} 
                     </Typography>
                 </CardContent>
             </CardActionArea>
         <InterviewInfoPopup 
-            open = {open}
-            handleClose = {handleClose}
+            openPopup = {openPopupForEdit}
+            handleClosePopup = {handleClosePopup}
             interview={interview}
             index={index}
             isNewInterview={false}
@@ -47,13 +58,12 @@ function InterviewCard({ interview, index }){
 
 
 export default function PositionInterviews({ interviews, handlePositionChange }) {
-    const [open, setOpen] = useState(false);
+    const [openNewPopup, setOpenNewPopup] = useState(false);
     const [interviewsValue, setInterviewsValue] = useState(interviews);
 
     function onChangeInterviews(newInterview, index){
         const newInterviews = [...interviewsValue];
         newInterviews[index] = newInterview;
-        console.log(newInterviews); //TODO: check if line 63 works on indexes that doesn't exist in the array
         setInterviewsValue(newInterviews);
         handlePositionChange(newInterviews,"interviews");
     }
@@ -63,14 +73,14 @@ export default function PositionInterviews({ interviews, handlePositionChange })
     }
 
     const handleAddingInterview = () => {
-        setOpen(true);
+        setOpenNewPopup(true);
     };
   
-    const handleClose = (event, reason) => {
+    const handleCloseNewPopup = (event, reason) => {
         if(reason && reason === "backdropClick"){
             return;
         }
-        setOpen(false);
+        setOpenNewPopup(false);
     };
 
     return(
@@ -94,8 +104,8 @@ export default function PositionInterviews({ interviews, handlePositionChange })
             </Grid>
             <InterviewContext.Provider value={onChangeInterviews}>
             <InterviewInfoPopup 
-                open = {open}
-                handleClose = {handleClose}
+                openPopup = {openNewPopup}
+                handleClosePopup = {handleCloseNewPopup}
                 interview={createInterview()}
                 index={interviewsValue.length}
                 isNewInterview={true}

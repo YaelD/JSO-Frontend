@@ -1,5 +1,41 @@
 
-let positionId = 1;
+let positionId = 0;
+let positionQuestionsId = 1;
+
+function createNetworkConnections(name, role, linkToLinkedin, appliedMe){
+    return {name, role, linkToLinkedin, appliedMe};
+}
+
+const networkConnections = [
+    createNetworkConnections("Yael davidov", "Software Developer", "https://www.linkedin.com/in/yael-davidov/", true),
+    createNetworkConnections("Eldar Sehayek", "Senior Software Architect", "https://www.linkedin.com/in/eldar-sehayek/", false),
+    createNetworkConnections("Matan Peretz", "Software Developer", "https://www.linkedin.com/in/matan-peretz/", false)
+]
+
+function createFile(path, name){
+    return new File([path], name);
+}
+
+const homeAssignments = [
+    createFile(["../testData/files/file1.docx"], "file1.docx"),
+    createFile(["../testData/files/file2.docx"], "file2.docx"),
+    createFile(["../testData/files/file3.pdf"], "file3.pdf")
+];
+
+export function incrementPositionQuestionId(){
+    return positionQuestionsId++;
+}
+
+function createQuestionsForInterviewers(question, answer){
+    const id = positionQuestionsId++;
+    return { question, answer, id }
+}
+
+const questionsAndAnswers = [
+    createQuestionsForInterviewers("What is the tech stack?", "Java, MySQL, JS, React"),
+    createQuestionsForInterviewers("What is the tech stack?", "Java, MySQL, JS, React"),
+    createQuestionsForInterviewers("How many steps are there in the process?", ""),
+]
 
 
 function createInterview(date, title, conclusions){
@@ -29,13 +65,13 @@ const positionInfo =  createPositionInfo("Google", "lknfnw", "fullStack", 5, "no
     // createPositionInfo("Intel", "lknfnw", "fullStack", 5, "not applied", "something", "C#, MySQL, js..."),
 
 
-function createPosition(positionInfo, interviews){
+function createPosition(positionInfo, interviews, questionsAndAnswers, homeAssignments, networkConnections){
     const id = positionId++;
-    return {id ,positionInfo, interviews}
+    return {id ,positionInfo, interviews, questionsAndAnswers, homeAssignments, networkConnections};
 }
 
 const positions = [
-    createPosition(positionInfo, interviews)
+    createPosition(positionInfo, interviews, questionsAndAnswers, homeAssignments, networkConnections)
 ];
 
 export default positions;

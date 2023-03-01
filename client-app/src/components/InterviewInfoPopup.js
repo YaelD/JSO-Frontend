@@ -3,21 +3,20 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import { useState, useContext } from 'react';
 import TextField from '@mui/material/TextField';
+import { Box, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { InterviewContext } from '../contexts/InterviewContext';
+import { InterviewContext } from '../contexts/PositionContexts';
 import DialogContentText from '@mui/material/DialogContentText';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 function InterviewDatePicker({ isEditMode, date, handleChangeInterview }) {
   const [value, setValue] = useState(date);
-
-  console.log(String(value));
-  console.log(JSON.stringify(value));
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -45,12 +44,12 @@ function InterviewDatePicker({ isEditMode, date, handleChangeInterview }) {
   );
 }
 
-export default function InterviewInfoPopup({ open, handleClose, interview, index, isNewInterview }) {
+export default function InterviewInfoPopup({ openPopup, handleClosePopup, interview, index, isNewInterview }) {
   const [interviewValue, setInterviewValue] = useState(interview);
   const [isEditMode, setEditMode] = useState(isNewInterview);
-
-
+  const [file, setFile] = useState();
   const changeInterview = useContext(InterviewContext);
+  let isDisabled = !isNewInterview && !isEditMode;
 
   const handleEditClick = () =>{
     setEditMode(true);
@@ -62,13 +61,29 @@ export default function InterviewInfoPopup({ open, handleClose, interview, index
       setInterviewValue(interview);
     }
     setEditMode(isNewInterview); //if it is new interview it will always set to true and if not it will always set to false
-    handleClose(event);
+    handleClosePopup(event);
+
+    //here create post request with fetch
+
+    // event.preventDefault()
+    // const url = 'http://localhost:3000/uploadFile';
+    // const formData = new FormData();
+    // formData.append('file', file);
+    // formData.append('fileName', file.name);
+    // const config = {
+    //   headers: {
+    //     'content-type': 'multipart/form-data',
+    //   },
+    // };
+    // axios.post(url, formData, config).then((response) => {
+    //   console.log(response.data);
+    // });
   }
 
   function handleCancel(event){
     setInterviewValue(interview);
     setEditMode(isNewInterview);
-    handleClose(event);
+    handleClosePopup(event);
   }
 
   function handleChangeInterview(event){
@@ -82,10 +97,27 @@ export default function InterviewInfoPopup({ open, handleClose, interview, index
     });
   }
 
+
+  function handleChangeFile(event) {
+    setFile(event.target.files[0]);
+  }
+
+  function handleDownloadFile(){
+    const fileURL = window.URL.createObjectURL(file);
+    // Setting various property values
+    let alink = document.createElement('a');
+    alink.href = fileURL;
+    alink.download = file.name;
+    alink.click();
+  }
+  
+
   return (
     <div>
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+    <form onSubmit={handleSave}>
+      <Dialog open={openPopup} onClose={handleClosePopup} fullWidth maxWidth="sm">
         <DialogActions>
+        {!isNewInterview && 
           <Fab 
             color="primary"
             aria-label="edit"
@@ -96,6 +128,7 @@ export default function InterviewInfoPopup({ open, handleClose, interview, index
           >
             <EditIcon />
           </Fab>
+        }
         </DialogActions>
         <DialogTitle>
           <TextField
@@ -111,6 +144,23 @@ export default function InterviewInfoPopup({ open, handleClose, interview, index
         </DialogTitle>
         <InterviewDatePicker isEditMode={isEditMode} date={interviewValue.date} handleChangeInterview={handleChangeInterview}/>
         <DialogContent>
+          <Box sx={{display:"flex"}} >
+          <Button variant="contained" component="label" disabled={isDisabled}>
+            Upload File
+            <input type="file" hidden onChange={handleChangeFile}/>
+          </Button>
+          {file && 
+            <Button
+              variant="text"
+              startIcon={<FileDownloadIcon />}
+              disabled={isDisabled}
+              sx={{ml:2, mt:2}}
+              onClick={handleDownloadFile}
+            >
+              {file?.name}
+            </Button>
+          }
+          </Box>
           <DialogContentText sx={{mt:2}}>
             Conclusions:
           </DialogContentText>
@@ -125,10 +175,11 @@ export default function InterviewInfoPopup({ open, handleClose, interview, index
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSave} disabled={!isEditMode}>Save</Button>
+          <Button onClick={handleSave} disabled={!isEditMode} type="submit">Save</Button>
           <Button onClick={handleCancel}>Cancel</Button>
         </DialogActions>
       </Dialog>
+      </form>
     </div>
   );
 }
