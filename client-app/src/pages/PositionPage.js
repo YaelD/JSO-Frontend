@@ -5,6 +5,9 @@ import Tabs from '@mui/material/Tabs';
 import { Container } from '@mui/material';
 import PositionInfo from '../components/PositionInfo';
 import PositionInterviews from '../components/PositionInterviews';
+import QuestionsForInterviewers from '../components/QuestionsForInterviewers';
+import HomeAssignments from '../components/HomeAssignments';
+import Network from '../components/Network';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -26,7 +29,7 @@ function TabPanel(props) {
 export default function PositionPage({position}) {
   const [value, setValue] = useState(0);
   const [positionValue, setPositionValue] = useState(position);
-  console.log(positionValue.positionInfo);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -68,6 +71,26 @@ export default function PositionPage({position}) {
       </TabPanel>
       <TabPanel value={value} index={2}>
         Item Three
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <QuestionsForInterviewers 
+          questionsAndAnswers={positionValue.questionsAndAnswers}
+          handlePositionChange={handlePositionChange}
+        />
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+        <HomeAssignments 
+          homeAssignmentsFiles={positionValue.homeAssignments}
+          handlePositionChange={handlePositionChange}
+        />
+      </TabPanel>
+      <TabPanel value={value} index={5}>
+      </TabPanel>
+      <TabPanel value={value} index={6}>
+        <Network
+          networkConnections={positionValue.networkConnections}
+          handlePositionChange={handlePositionChange}
+        />
       </TabPanel>
     </Box>
   );

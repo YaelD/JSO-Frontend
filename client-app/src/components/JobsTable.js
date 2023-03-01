@@ -58,7 +58,7 @@ export default function JobsTable() {
           <TableRow>
             {tableCells.map((cell)=>{
               return(
-                <StyledTableCell align="left">{cell}</StyledTableCell>
+                <StyledTableCell key={cell} align="left">{cell}</StyledTableCell>
               ); 
             })}
           </TableRow>
