@@ -28,10 +28,10 @@ function PositionStatusStepper() {
   );
 }
 
-export default function PositionInfo({ positionInfo, handlePositionChange }) {
+export default function PositionInfo({ position }) {
 
-  const [positionInfoValue, setPositionInfoValue] = useState(positionInfo);
-
+  const [positionInfoValue, setPositionInfoValue] = useState(position.positionInfo);
+  
   function handlePositionInfoChange(event){
     const {name, value} = event.target;
     setPositionInfoValue((prevPositionValue)=>{
@@ -39,8 +39,8 @@ export default function PositionInfo({ positionInfo, handlePositionChange }) {
         ...prevPositionValue,
         [name]:value
       }
-      handlePositionChange(newInfo, "positionInfo");
-      return newInfo;
+      position.positionInfo = newInfo;
+      return position.positionInfo;
     });
   }
 

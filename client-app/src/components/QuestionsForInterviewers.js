@@ -122,8 +122,8 @@ function AccordionItem({ questionAndAnswer, onDeleteQuestion, onUpdateQuestion }
     );
 }
 
-export default function QuestionsForInterviewers({ questionsAndAnswers, handlePositionChange }) {
-    const [questionsAndAnswersValue, setQuestionsAndAnswers] = useState(questionsAndAnswers); // Is it necessary to add it? it works also with updating only the position 
+export default function QuestionsForInterviewers({ position }) {
+    const [questionsAndAnswersValue, setQuestionsAndAnswers] = useState(position.questionsAndAnswers); // Is it necessary to add it? it works also with updating only the position 
     const [questionValue, setQuestionValue] = useState("");
 
     function handleDeleteQuestion(questionToDelete){
@@ -131,7 +131,7 @@ export default function QuestionsForInterviewers({ questionsAndAnswers, handlePo
             return(question.id !== questionToDelete.id);  
         });
         setQuestionsAndAnswers(newQuestionsAndAnswers);
-        handlePositionChange(newQuestionsAndAnswers, "questionsAndAnswers");
+        position.questionsAndAnswers = newQuestionsAndAnswers;
     }
 
     function handleUpdateQuestion(questionToUpdate){
@@ -144,7 +144,7 @@ export default function QuestionsForInterviewers({ questionsAndAnswers, handlePo
             }
         });
         setQuestionsAndAnswers(newQuestionsAndAnswers);
-        handlePositionChange(newQuestionsAndAnswers, "questionsAndAnswers");
+        position.questionsAndAnswers = newQuestionsAndAnswers;
     }
 
     function handleQuestionChange(event){
@@ -161,7 +161,7 @@ export default function QuestionsForInterviewers({ questionsAndAnswers, handlePo
         const newQuestionsAndAnswers = [...questionsAndAnswersValue, newQuestionAndAnswer];
         console.log(newQuestionAndAnswer.id);
         setQuestionsAndAnswers(newQuestionsAndAnswers);
-        handlePositionChange(newQuestionsAndAnswers, "questionsAndAnswers");
+        position.questionsAndAnswers = newQuestionsAndAnswers;
     }
 
     return (
@@ -181,10 +181,10 @@ export default function QuestionsForInterviewers({ questionsAndAnswers, handlePo
                 <Button variant="contained" startIcon={<AddIcon />}
                 onClick={handleAddingQuestion} disabled={questionValue === "" && true}>Add</Button>
             </Container>
-            {questionsAndAnswers.map((questionsAndAnswersValue, index)=>{
+            {questionsAndAnswersValue.map((questionAndAnswer, index)=>{
                 return(
                     <AccordionItem 
-                            key={questionsAndAnswersValue.id} questionAndAnswer={questionsAndAnswersValue}
+                            key={questionAndAnswer.id} questionAndAnswer={questionAndAnswer}
                             onDeleteQuestion={handleDeleteQuestion} onUpdateQuestion={handleUpdateQuestion}
                     />
                 );
