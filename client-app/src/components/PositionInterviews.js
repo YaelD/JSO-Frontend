@@ -12,9 +12,10 @@ import CardContent from '@mui/material/CardContent';
 import DeleteIcon from '@mui/icons-material/Delete';
 import InterviewInfoPopup from './InterviewInfoPopup';
 import { InterviewContext } from '../contexts/PositionContexts';
+import { incrementInterviewsId } from '../testData/position';
 
 
-function InterviewCard({ interview, index }){
+function InterviewCard({ interview, handleDeleteInterview }){
     const [openPopupForEdit, setOpenPopupForEdit] = useState(false);
 
     const handleOpenPopup = () => {
@@ -31,7 +32,7 @@ function InterviewCard({ interview, index }){
             <CardHeader
                 action={
                     <IconButton aria-label="delete" name="deleteButton" onClick={(event)=>{
-                        alert("card deleted");
+                        handleDeleteInterview(interview);
                         event.stopPropagation();
                         }}>
                         <DeleteIcon />
@@ -49,7 +50,6 @@ function InterviewCard({ interview, index }){
             openPopup = {openPopupForEdit}
             handleClosePopup = {handleClosePopup}
             interview={interview}
-            index={index}
             isNewInterview={false}
         />
         </Card>
@@ -57,19 +57,55 @@ function InterviewCard({ interview, index }){
 }
 
 
-export default function PositionInterviews({ interviews, handlePositionChange }) {
+export default function PositionInterviews({ position }) {
     const [openNewPopup, setOpenNewPopup] = useState(false);
-    const [interviewsValue, setInterviewsValue] = useState(interviews);
+    const [interviewsValue, setInterviewsValue] = useState(position.interviews);
 
-    function onChangeInterviews(newInterview, index){
-        const newInterviews = [...interviewsValue];
-        newInterviews[index] = newInterview;
+    function handleAddingNewInterview(newInterview){
+        const newInterviews = [...interviewsValue, newInterview];
+        console.log(newInterview.id);
         setInterviewsValue(newInterviews);
-        handlePositionChange(newInterviews,"interviews");
+        position.interviews = newInterviews;
+    }
+
+    function handleUpdateInterview(interviewToUpdate){
+        const newInterviews = interviewsValue.map((interview)=>{
+            if(interview.id === interviewToUpdate.id){
+                return interviewToUpdate;
+            }
+            else{
+                return interview;
+            }
+        });
+        setInterviewsValue(newInterviews);
+        position.interviews = newInterviews;
+    }
+
+    function handleDeleteInterview(interviewToDelete){
+        const newInterviews = interviewsValue.filter((interview)=>{
+            return(interview.id !== interviewToDelete.id);  
+        });
+        setInterviewsValue(newInterviews);
+        position.interviews = newInterviews;
+    }
+
+
+    function onChangeInterviews(interview, operation){
+        switch(operation){
+            case "Add":
+                handleAddingNewInterview(interview);
+                break;
+            case "Update":
+                handleUpdateInterview(interview);
+                break;
+            default:
+                break;
+        }
     }
 
     function createInterview(date, title, conclusions){
-        return { date, title, conclusions };
+        const id = incrementInterviewsId();
+        return { date, title, conclusions, id };
     }
 
     const handleAddingInterview = () => {
@@ -91,11 +127,11 @@ export default function PositionInterviews({ interviews, handlePositionChange })
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                 {interviewsValue.map((interview, index) => {
                     return(
-                        <Grid item xs={2} sm={4} md={4} key={index}>
+                        <Grid item xs={2} sm={4} md={4} key={interview.id}>
                             <InterviewContext.Provider value={onChangeInterviews}>
                                 <InterviewCard 
                                     interview={interview}
-                                    index={index}
+                                    handleDeleteInterview={handleDeleteInterview}
                                 />
                             </InterviewContext.Provider>
                         </Grid>
@@ -107,7 +143,6 @@ export default function PositionInterviews({ interviews, handlePositionChange })
                 openPopup = {openNewPopup}
                 handleClosePopup = {handleCloseNewPopup}
                 interview={createInterview()}
-                index={interviewsValue.length}
                 isNewInterview={true}
             />
             </InterviewContext.Provider>

@@ -1,9 +1,18 @@
 
 let positionId = 0;
 let positionQuestionsId = 1;
+let interviewId = 1;
+let connectionId = 1;
+let homeAssignmentsId = 1;
 
-function createNetworkConnections(name, role, linkToLinkedin, appliedMe){
-    return {name, role, linkToLinkedin, appliedMe};
+export function incrementConnectionId(){
+    return connectionId++;
+}
+
+export function createNetworkConnections(name, role, linkToLinkedin, applied){
+    const id = connectionId++;
+    const appliedMe = applied ?? false;
+    return {name, role, linkToLinkedin, appliedMe, id};
 }
 
 const networkConnections = [
@@ -14,6 +23,10 @@ const networkConnections = [
 
 function createFile(path, name){
     return new File([path], name);
+}
+
+export function incrementHomeAssignmentsId(){
+    return homeAssignmentsId++;
 }
 
 const homeAssignments = [
@@ -28,7 +41,7 @@ export function incrementPositionQuestionId(){
 
 function createQuestionsForInterviewers(question, answer){
     const id = positionQuestionsId++;
-    return { question, answer, id }
+    return { question, answer, id };
 }
 
 const questionsAndAnswers = [
@@ -37,9 +50,13 @@ const questionsAndAnswers = [
     createQuestionsForInterviewers("How many steps are there in the process?", ""),
 ]
 
+export function incrementInterviewsId(){
+    return interviewId++;
+}
 
-function createInterview(date, title, conclusions){
-    return { date, title, conclusions }
+function createInterview(date, title, conclusions, file){
+    const id = interviewId++;
+    return { date, title, conclusions, file, id };
 }
 
 const interviews = [

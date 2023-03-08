@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import { useState, useContext } from 'react';
 import TextField from '@mui/material/TextField';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
@@ -44,10 +44,9 @@ function InterviewDatePicker({ isEditMode, date, handleChangeInterview }) {
   );
 }
 
-export default function InterviewInfoPopup({ openPopup, handleClosePopup, interview, index, isNewInterview }) {
+export default function InterviewInfoPopup({ openPopup, handleClosePopup, interview, isNewInterview }) {
   const [interviewValue, setInterviewValue] = useState(interview);
   const [isEditMode, setEditMode] = useState(isNewInterview);
-  const [file, setFile] = useState();
   const changeInterview = useContext(InterviewContext);
   let isDisabled = !isNewInterview && !isEditMode;
 
@@ -56,9 +55,12 @@ export default function InterviewInfoPopup({ openPopup, handleClosePopup, interv
   };
 
   function handleSave(event){
-    changeInterview(interviewValue, index);
     if(isNewInterview){
+      changeInterview(interviewValue, "Add");
       setInterviewValue(interview);
+    }
+    else{
+      changeInterview(interviewValue, "Update");
     }
     setEditMode(isNewInterview); //if it is new interview it will always set to true and if not it will always set to false
     handleClosePopup(event);
@@ -99,15 +101,22 @@ export default function InterviewInfoPopup({ openPopup, handleClosePopup, interv
 
 
   function handleChangeFile(event) {
-    setFile(event.target.files[0]);
+    setInterviewValue((prevInterviewValue)=>{
+      const newInterview = {
+        ...prevInterviewValue,
+        file: event.target.files[0]
+      }
+      return newInterview;
+    });
   }
 
+  //TODO: should I use here useEffect hook?
   function handleDownloadFile(){
-    const fileURL = window.URL.createObjectURL(file);
+    const fileURL = window.URL.createObjectURL(interviewValue.file);
     // Setting various property values
     let alink = document.createElement('a');
     alink.href = fileURL;
-    alink.download = file.name;
+    alink.download = interviewValue.file.name;
     alink.click();
   }
   
@@ -149,7 +158,7 @@ export default function InterviewInfoPopup({ openPopup, handleClosePopup, interv
             Upload File
             <input type="file" hidden onChange={handleChangeFile}/>
           </Button>
-          {file && 
+          {interviewValue.file && 
             <Button
               variant="text"
               startIcon={<FileDownloadIcon />}
@@ -157,7 +166,7 @@ export default function InterviewInfoPopup({ openPopup, handleClosePopup, interv
               sx={{ml:2, mt:2}}
               onClick={handleDownloadFile}
             >
-              {file?.name}
+              {interviewValue.file?.name}
             </Button>
           }
           </Box>

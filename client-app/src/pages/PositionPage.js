@@ -25,23 +25,12 @@ function TabPanel(props) {
   );
 }
 
-
 export default function PositionPage({position}) {
   const [value, setValue] = useState(0);
-  const [positionValue, setPositionValue] = useState(position);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  function handlePositionChange(newPositionData, positionSectionToUpdate){
-    setPositionValue((prevPositionValue)=>{
-      return({
-        ...prevPositionValue,
-        [positionSectionToUpdate]:newPositionData
-      })
-    })
-  }
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -59,14 +48,12 @@ export default function PositionPage({position}) {
       </Box>
       <TabPanel value={value} index={0}>
         <PositionInfo 
-          positionInfo={positionValue.positionInfo}
-          handlePositionChange={handlePositionChange}
+          position={position}
         />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <PositionInterviews 
-          interviews={positionValue.interviews}
-          handlePositionChange={handlePositionChange}
+          position={position}
         />
       </TabPanel>
       <TabPanel value={value} index={2}>
@@ -74,22 +61,19 @@ export default function PositionPage({position}) {
       </TabPanel>
       <TabPanel value={value} index={3}>
         <QuestionsForInterviewers 
-          questionsAndAnswers={positionValue.questionsAndAnswers}
-          handlePositionChange={handlePositionChange}
+          position={position}
         />
       </TabPanel>
       <TabPanel value={value} index={4}>
         <HomeAssignments 
-          homeAssignmentsFiles={positionValue.homeAssignments}
-          handlePositionChange={handlePositionChange}
+          position={position}
         />
       </TabPanel>
       <TabPanel value={value} index={5}>
       </TabPanel>
       <TabPanel value={value} index={6}>
         <Network
-          networkConnections={positionValue.networkConnections}
-          handlePositionChange={handlePositionChange}
+          position={position}
         />
       </TabPanel>
     </Box>

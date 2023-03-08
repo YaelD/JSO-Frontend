@@ -14,7 +14,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 function FileCard({ file }){
 
   function handleDownload(){
-    // Creating new object of PDF file
+    // Creating new object file
     const fileURL = window.URL.createObjectURL(file);
     // Setting various property values
     let alink = document.createElement('a');
@@ -51,12 +51,13 @@ function FileCard({ file }){
 }
 
 
-export default function HomeAssignments({ homeAssignmentsFiles, handlePositionChange }) {
-  const [fileList, setFileList] = useState(homeAssignmentsFiles);
+export default function HomeAssignments({ position }) {
+  const [fileList, setFileList] = useState(position.homeAssignments);
 
   const handleFileChange = (e) => {
     setFileList((prevFileList)=>{
       let newFileList = [...prevFileList, ...e.target.files];
+      position.homeAssignments = newFileList;
       return newFileList;
     });
   };
@@ -83,7 +84,6 @@ export default function HomeAssignments({ homeAssignmentsFiles, handlePositionCh
 //   };
 
   // 👇 files is not an array, but it's iterable, spread to get an array of files
-  const files = fileList ? [...fileList] : [];
 
   return (
     <div>
@@ -91,30 +91,19 @@ export default function HomeAssignments({ homeAssignmentsFiles, handlePositionCh
             Upload Files
             <input type="file" hidden onChange={handleFileChange} multiple/>
         </Button>
-      {/* <input type="file" onChange={handleFileChange} multiple /> */}
 
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                {files.map((file, index) => {
-                    return(
-                        <Grid item xs={2} sm={4} md={4} key={index}>
-                                <FileCard 
-                                    key={index}
-                                    file={file}
-                                />
-                        </Grid>
-                    );
-                })}
-            </Grid>
-
-      {/* <ul>
-        {files.map((file, i) => (
-          <li key={i}>
-            {file.name} - {file.type}
-          </li>
-        ))}
-      </ul> */}
-
-      {/* <button onClick={handleUploadClick}>Upload</button> */}
+          {fileList.map((file, index) => {
+            return(
+                <Grid item xs={2} sm={4} md={4} key={index}>
+                  <FileCard 
+                    key={index}
+                    file={file}
+                  />
+                </Grid>
+            );
+          })}
+      </Grid>
     </div>
   );
 }

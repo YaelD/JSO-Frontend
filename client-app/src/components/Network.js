@@ -1,4 +1,3 @@
-import * as React from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
@@ -7,65 +6,292 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import Fab from '@mui/material/Fab';
+import { useState } from 'react';
+import Dialog from '@mui/material/Dialog';
+import TextField from '@mui/material/TextField';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import { createNetworkConnections, incrementPositionQuestionId } from '../testData/position';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
 
-export default function Network({ networkConnections, handlePositionChange }) {
-  return (
-    <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-    {networkConnections.map((connection)=>{
-        return(
-            <>
-            <ListItem alignItems="flex-start">
-                <ListItemAvatar>
+
+
+function ConnectionPopup({ connection, handleClosePopup, handleChangeConnections, openPopup, isNewConnection }){
+    const [connectionValue, setConnectionValue] = useState(connection);
+    const [checked, setChecked] = useState(connection.appliedMe);
+
+    function handleChangeCheckboxValue(event){
+        setChecked(event.target.checked);
+        setConnectionValue((prevConnectionValue)=>{
+            const newConnection = {
+              ...prevConnectionValue,
+              appliedMe:event.target.checked
+            }
+            return newConnection;
+          });
+      };
+
+    function handleChangeConnectionValue(event){
+        const {name, value} = event.target;
+        setConnectionValue((prevConnectionValue)=>{
+          const newConnection = {
+            ...prevConnectionValue,
+            [name]:value
+          }
+          return newConnection;
+        });
+    }
+
+    function handleSave(){
+        if(isNewConnection){
+            handleChangeConnections("Add", connectionValue);
+        } else {
+            handleChangeConnections("Update", connectionValue);
+        }
+        handleClosePopup();
+    }
+
+    function handleCancel(){
+        setConnectionValue(connection);
+        handleClosePopup();
+    }
+
+    return(
+      <Dialog open={openPopup} onClose={handleClosePopup} fullWidth maxWidth="sm">
+        <DialogTitle>
+        Create a contact:
+        </DialogTitle>
+        <DialogContent>
+            <DialogContentText sx={{mt:2}}>
+                Name:
+            </DialogContentText>
+            <TextField
+                name={"name"}
+                variant="standard"
+                value={connectionValue.name}
+                margin="dense"
+                fullWidth
+                required
+                onChange={handleChangeConnectionValue}
+            />
+            <DialogContentText sx={{mt:3}}>
+                role:
+            </DialogContentText>
+            <TextField
+                name={"role"}
+                multiline
+                maxRows={2}
+                value={connectionValue.role}
+                fullWidth
+                required
+                onChange={handleChangeConnectionValue}
+            />
+            <DialogContentText sx={{mt:3}}>
+                Link to Linkedin profile:
+            </DialogContentText>
+            <TextField
+                name={"linkToLinkedin"}
+                multiline
+                maxRows={2}
+                value={connectionValue.linkToLinkedin}
+                fullWidth
+                required
+                onChange={handleChangeConnectionValue}
+            />
+            <DialogContentText sx={{mt:2}}>
+                <FormControlLabel 
+                control={
+                <Checkbox
+                    checked={checked}
+                    onChange={handleChangeCheckboxValue}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                />} 
+                label="Applied the CV" 
+            />
+            </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleSave} disabled={
+            !connectionValue.name || !connectionValue.linkToLinkedin || !connectionValue.role
+          }>Save</Button>
+          <Button onClick={handleCancel}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
+    );
+}
+
+function ConnectionListItem({connection, handleChangeConnections}){
+    const [openPopup, setOpenPopup] = useState(false);
+
+    function handleListItemClick(){
+        setOpenPopup(true);
+    }
+
+    function handleLinkClick(event){
+        event.stopPropagation();
+    }
+
+    function handleDeleteBtnClick(event){
+        event.stopPropagation();
+        handleChangeConnections("Delete", connection);
+    }
+
+    return(
+        <>
+        <ListItem 
+            alignItems="flex-start"
+            onClick={handleListItemClick}
+            secondaryAction={
+              <IconButton edge="end" aria-label="delete">
+                <DeleteIcon onClick={handleDeleteBtnClick}/>
+              </IconButton>
+            }
+            sx={{width:0.8}}
+        >
+            <ListItemAvatar>
                 <Avatar alt={connection.name}/>
-                </ListItemAvatar>
-                <ListItemText sx={{display:"flex"}}
-                primary={
-                    <React.Fragment>
-                    <Typography
-                        sx={{ display: 'inline' }}
-                        component="span"
-                        variant="body1"
-                        color="text.primary"
-                    >
-                        {connection.name}
-                    </Typography>
+            </ListItemAvatar>
+            <ListItemText sx={{display:"flex"}}
+            primary={
+                <>
+                <Typography
+                    sx={{ display: 'inline' }}
+                    component="span"
+                    variant="body1"
+                    color="text.primary"
+                >
+                    {connection.name}
+                </Typography>
+                <br/>
+                <Typography
+                    sx={{ display: 'inline' }}
+                    component="span"
+                    variant="body2"
+                    color="text.secondary"
+                >
+                    {connection.role}
+                </Typography>
+                </>
+            }
+            />
+            <ListItemText sx={{display:"flex"}} 
+            secondary={
+                <>
+                    <Link onClick={handleLinkClick} href={connection.linkToLinkedin}>Linkedin profile</Link>
                     <br/>
-                    <Typography
-                        sx={{ display: 'inline' }}
+                    <Typography 
+                        sx={{ display: 'flex' }}
                         component="span"
                         variant="body2"
                         color="text.secondary"
                     >
-                        {connection.role}
-                    </Typography>
-                    </React.Fragment>
-                }
-                secondary={
-                    <React.Fragment>
-                    <Box sx={{ml:10}}>
-                        <Link href={connection.linkToLinkedin}>Linkedin profile</Link>
-                        <Typography></Typography>
-                    </Box>
-                    {/* <Typography
-                        sx={{ display: 'inline' }}
-                        component="span"
-                        variant="body2"
-                        color="text.secondary"
-                    >
-                        Software Developer
-                    </Typography>
-                    <br/> */}
-                    
-                    {/* {" — I'll be in your neighborhood doing errands this…"} */}
-                    </React.Fragment>
-                }
-                />
-            </ListItem>
-            <Divider variant="inset" component="li" />
-            </>
-        );
-    })}
-    </List>
-  );
+                    applied my CV: {String(connection.appliedMe)}</Typography>
+                </>
+            }
+            />
+        </ListItem>
+        <ConnectionPopup
+                connection={connection}
+                handleClosePopup={()=>{
+                    setOpenPopup(false);
+                }}
+                handleChangeConnections={handleChangeConnections}
+                openPopup={openPopup}
+                isNewConnection={false}
+            />
+        </>
+    );
+}
+
+export default function Network({ position }) {
+    const [networkConnectionsValue, setNetworkConnectionsValue] = useState(position.networkConnections);
+    const [openPopup, setOpenPopup] = useState(false);
+
+    function handleAddClick(){
+        setOpenPopup(true);
+    }
+
+    function handleAddNewConnection(newConnection){
+        const newConnections = [...networkConnectionsValue, newConnection];
+        console.log(newConnection.id);
+        setNetworkConnectionsValue(newConnections);
+        position.networkConnections = newConnections;
+    }
+
+    function handleDeleteConnection(connectionToDelete){
+        const newConnections = networkConnectionsValue.filter((connection)=>{
+            return(connection.id !== connectionToDelete.id);  
+        });
+        setNetworkConnectionsValue(newConnections);
+        position.networkConnections = newConnections;
+    }
+
+    function handleEditConnection(connectionToUpdate){
+        const newConnections = networkConnectionsValue.map((connection)=>{
+            if(connection.id === connectionToUpdate.id){
+                return connectionToUpdate;
+            }
+            else{
+                return connection;
+            }
+        });
+        setNetworkConnectionsValue(newConnections);
+        position.networkConnections = newConnections;
+    }
+
+    function handleChangeConnections(operation, connection){
+        switch(operation){
+            case "Add":
+                handleAddNewConnection(connection);
+                break;
+            case "Update":
+                handleEditConnection(connection);
+                break;
+            case "Delete":
+                handleDeleteConnection(connection);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    return (
+        <Box>
+            <Fab color="primary" aria-label="add" sx={{mb:5}} size="medium" onClick={handleAddClick}>
+                <AddIcon />
+            </Fab>
+            <List sx={{ width: '100%', bgcolor: 'background.paper'}}>
+                {networkConnectionsValue.map((connection)=>{
+                return(
+                    <div key={connection.id}>
+                    <ConnectionListItem 
+                        connection={connection}
+                        handleChangeConnections={handleChangeConnections}
+                    />
+                    <Divider variant="inset" component="li" sx={{width:0.8}}/>
+                    </div>
+                );
+            })}
+            </List>
+            <ConnectionPopup
+                connection={createNetworkConnections()}
+                handleClosePopup={()=>{
+                    setOpenPopup(false);
+                }}
+                handleChangeConnections={handleChangeConnections}
+                openPopup={openPopup}
+                isNewConnection={true}
+            />
+        </Box>
+
+    );
 }
