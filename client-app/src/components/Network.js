@@ -1,26 +1,26 @@
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import { Box, Button } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import Fab from '@mui/material/Fab';
 import { useState } from 'react';
+import Fab from '@mui/material/Fab';
+import List from '@mui/material/List';
+import Link from '@mui/material/Link';
 import Dialog from '@mui/material/Dialog';
-import TextField from '@mui/material/TextField';
-import DeleteIcon from '@mui/icons-material/Delete';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import { createNetworkConnections, incrementPositionQuestionId } from '../testData/position';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import Avatar from '@mui/material/Avatar';
+import { Box, Button } from '@mui/material';
+import Divider from '@mui/material/Divider';
 import Checkbox from '@mui/material/Checkbox';
+import ListItem from '@mui/material/ListItem';
+import AddIcon from '@mui/icons-material/Add';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import DialogTitle from '@mui/material/DialogTitle';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ListItemText from '@mui/material/ListItemText';
+import { NetworkConnection } from '../utils/position';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import DialogContentText from '@mui/material/DialogContentText';
 
 
 
@@ -53,6 +53,7 @@ function ConnectionPopup({ connection, handleClosePopup, handleChangeConnections
     function handleSave(){
         if(isNewConnection){
             handleChangeConnections("Add", connectionValue);
+            setConnectionValue(new NetworkConnection());
         } else {
             handleChangeConnections("Update", connectionValue);
         }
@@ -269,7 +270,7 @@ export default function Network({ position }) {
             <Fab color="primary" aria-label="add" sx={{mb:5}} size="medium" onClick={handleAddClick}>
                 <AddIcon />
             </Fab>
-            <List sx={{ width: '100%', bgcolor: 'background.paper'}}>
+            <List sx={{ width: '100%'}}>
                 {networkConnectionsValue.map((connection)=>{
                 return(
                     <div key={connection.id}>
@@ -283,7 +284,7 @@ export default function Network({ position }) {
             })}
             </List>
             <ConnectionPopup
-                connection={createNetworkConnections()}
+                connection={new NetworkConnection()}
                 handleClosePopup={()=>{
                     setOpenPopup(false);
                 }}

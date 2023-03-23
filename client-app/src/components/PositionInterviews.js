@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import AddIcon from '@mui/icons-material/Add';
+import { Interview } from '../utils/position';
 import { CardActionArea } from '@mui/material';
 import CardHeader from '@mui/material/CardHeader';
 import IconButton from '@mui/material/IconButton';
@@ -12,7 +13,6 @@ import CardContent from '@mui/material/CardContent';
 import DeleteIcon from '@mui/icons-material/Delete';
 import InterviewInfoPopup from './InterviewInfoPopup';
 import { InterviewContext } from '../contexts/PositionContexts';
-import { incrementInterviewsId } from '../testData/position';
 
 
 function InterviewCard({ interview, handleDeleteInterview }){
@@ -103,11 +103,6 @@ export default function PositionInterviews({ position }) {
         }
     }
 
-    function createInterview(date, title, conclusions){
-        const id = incrementInterviewsId();
-        return { date, title, conclusions, id };
-    }
-
     const handleAddingInterview = () => {
         setOpenNewPopup(true);
     };
@@ -142,7 +137,7 @@ export default function PositionInterviews({ position }) {
             <InterviewInfoPopup 
                 openPopup = {openNewPopup}
                 handleClosePopup = {handleCloseNewPopup}
-                interview={createInterview()}
+                interview={new Interview()}
                 isNewInterview={true}
             />
             </InterviewContext.Provider>

@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DialogTitle from '@mui/material/DialogTitle';
+import { QuestionsAndAnswer } from '../utils/position';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import { Box, Container, IconButton } from '@mui/material';
@@ -15,7 +16,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import DialogContentText from '@mui/material/DialogContentText';
-import { incrementPositionQuestionId } from '../testData/position';
 
 
 
@@ -153,11 +153,7 @@ export default function QuestionsForInterviewers({ position }) {
 
     function handleAddingQuestion(){
         setQuestionValue('');
-        const newQuestionAndAnswer = {
-            question: questionValue,
-            answer: "",
-            id: incrementPositionQuestionId()
-        }
+        const newQuestionAndAnswer = new QuestionsAndAnswer(questionValue, "");
         const newQuestionsAndAnswers = [...questionsAndAnswersValue, newQuestionAndAnswer];
         console.log(newQuestionAndAnswer.id);
         setQuestionsAndAnswers(newQuestionsAndAnswers);
