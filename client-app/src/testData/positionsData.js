@@ -27,8 +27,9 @@ const interviews = [
 
 const positionInfo =  new PositionInfo("Google", "lknfnw", "fullStack", 5, "not applied", "something", "C#, MySQL, js...");
 
-const positions = [
-    new Position(positionInfo, interviews, questionsAndAnswers, homeAssignments, networkConnections)
-];
+const positions = new Map();
+const newPosition = new Position(positionInfo, interviews, questionsAndAnswers, homeAssignments, networkConnections);
+
+positions.set(newPosition.id, newPosition);
 
 export default positions;

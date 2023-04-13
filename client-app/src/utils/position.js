@@ -50,7 +50,7 @@ export class PositionInfo{
 }
 export class Position{
     static idNumber = 1;
-    constructor(positionInfo, interviews, questionsAndAnswers, homeAssignments, networkConnections){
+    constructor(positionInfo = new PositionInfo(), interviews = [], questionsAndAnswers = [], homeAssignments = [], networkConnections = []){
         this.positionInfo = positionInfo;
         this.interviews = interviews;
         this.questionsAndAnswers = questionsAndAnswers;

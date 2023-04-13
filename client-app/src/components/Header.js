@@ -12,7 +12,6 @@ export default function Header(){
                 color="default"
                 position="fixed"
                 elevation={0}
-                // sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
                 sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
             >
                 <Toolbar sx={{ flexWrap: 'wrap' }}>

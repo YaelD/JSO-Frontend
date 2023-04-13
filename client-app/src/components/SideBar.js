@@ -13,14 +13,18 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import ListItemButton from '@mui/material/ListItemButton';
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
 
-function SideBarItem({ item, handleListItemClick, isExtended}) {
+function SideBarItem({ handleListItemClick, item, isExtended, isSelected}) {
+
+  const location = useLocation();
 
   return (
       <ListItemButton
           sx={{pl: item.isInsideSubList === true ? 5 : 2 }}
-          onClick={handleListItemClick}
+          component={RouterLink} to={item.path ?? location.pathname}
+          onClick={handleListItemClick} selected={isSelected === item.text}
       >
           <ListItemIcon>
               {item.icon}
@@ -35,11 +39,12 @@ function SideBarItem({ item, handleListItemClick, isExtended}) {
 const drawerWidth = 240;
 
 class SideBarButtons {
-  constructor(text, icon, subMenuButtons, isInsideSubList) {
+  constructor(text, icon, subMenuButtons, isInsideSubList, path) {
     this.text = text;
     this.icon = icon;
     this.subMenuButtons = subMenuButtons;
     this.isInsideSubList = isInsideSubList;
+    this.path = path;
   }
 }
 
@@ -47,20 +52,22 @@ class SideBarButtons {
 export default function SideBar() {
 
   const [isExtended, setIsExtended] = useState(true);
+  const [isSelected, setIsSelected] = useState("Pending");
 
   const nestedListOfButtons = [
-    new SideBarButtons("Pending", <WorkHistoryIcon />, null, true),
-    new SideBarButtons("Open", <WorkIcon />, null, true),
-    new SideBarButtons("Closed", <WorkOffIcon />, null, true),
+    new SideBarButtons("Pending", <WorkHistoryIcon />, null, true,"pending-processes"),
+    new SideBarButtons("Open", <WorkIcon />, null, true, "open-processes"),
+    new SideBarButtons("Closed", <WorkOffIcon />, null, true, "closed-processes"),
   ];
   
   const ListOfButtons = [
-    new SideBarButtons("Processes", <BusinessCenterOutlinedIcon />, nestedListOfButtons, false),
-    new SideBarButtons("Networking", <PeopleIcon />, null, false),
+    new SideBarButtons("Processes", <BusinessCenterOutlinedIcon />, nestedListOfButtons, false, null),
+    new SideBarButtons("Networking", <PeopleIcon />, null, false, "networking"),
   ];
 
-  function handleListItemClick(page){
-    if(page === "Processes"){
+  function handleListItemClick(itemText){
+    setIsSelected(itemText);
+    if(itemText === "Processes"){
       setIsExtended(!isExtended);
     }
   }
@@ -71,6 +78,7 @@ export default function SideBar() {
         handleListItemClick={()=>{handleListItemClick(item.text);}}
         item={item}
         isExtended={isExtended}
+        isSelected={isSelected}
         key={item.text}
       />
     );

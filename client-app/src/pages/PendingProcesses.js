@@ -2,12 +2,10 @@ import * as React from 'react';
 import JobsTable from '../components/JobsTable';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
+import { Link } from 'react-router-dom';
+import { Position } from '../utils/position';
 
 export default function PendingProcesses(){
-
-    function handleAddPosition(){
-        //TODO: render an empty position page
-    }
 
     return (
         <>
@@ -16,7 +14,9 @@ export default function PendingProcesses(){
                 color='info'
                 startIcon={<AddIcon />}
                 sx={{marginBottom: 3}}
-                onClick={handleAddPosition}
+                component={Link}
+                to="/positions/new-position"
+                state={new Position()}
             >
                 Add Position
             </Button>

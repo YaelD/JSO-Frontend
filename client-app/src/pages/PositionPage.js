@@ -2,12 +2,15 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import { Container } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import PositionInfo from '../components/PositionInfo';
 import PositionInterviews from '../components/PositionInterviews';
 import QuestionsForInterviewers from '../components/QuestionsForInterviewers';
 import HomeAssignments from '../components/HomeAssignments';
 import Network from '../components/Network';
+import Stack from '@mui/material/Stack';
+import positions from '../testData/positionsData';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -25,16 +28,37 @@ function TabPanel(props) {
   );
 }
 
-export default function PositionPage({position}) {
+export default function PositionPage() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [value, setValue] = useState(0);
+
+  const position = location.state;
+  console.log(position);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  function handleSave(){
+    const currPositions = positions;
+    if(!currPositions.has(position)){
+      currPositions.set(position.id, position);
+    }
+    navigate(-1); //go back to the previous url
+  }
+
+  function handleCancel(){
+    navigate(-1);
+  }
+
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', m: 10 }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider', width:"100%" }}>
+        <Stack spacing={2} direction="row" sx={{ justifyContent: "flex-end" }}>
+          <Button variant="contained" onClick={handleSave}>save</Button>
+          <Button variant="contained" onClick={handleCancel}>cancel</Button>
+        </Stack>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Position info" wrapped />
           <Tab label="Interviews" wrapped />
