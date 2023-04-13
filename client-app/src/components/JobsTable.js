@@ -2,7 +2,7 @@ import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
-import positions from '../testData/position';
+import positions from '../testData/positionsData';
 import { styled } from '@mui/material/styles';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
@@ -10,8 +10,10 @@ import TableHead from '@mui/material/TableHead';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import TableContainer from '@mui/material/TableContainer';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import { Link } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -44,9 +46,6 @@ export default function JobsTable() {
     "Actions"
   ];
 
-  function handleEditClick(positionId){
-    console.log(positionId);
-  }
 
   function handleViewClick(positionId){
     console.log(positionId);
@@ -67,9 +66,10 @@ export default function JobsTable() {
   }
 
   function renderTableRows(){
+    const positionsValues = Array.from(positions.values());
     return (
       <>
-      {positions.map((position)=>{
+      {positionsValues.map((position)=>{
         return(
           <StyledTableRow key={position.id}>
             <StyledTableCell sx={{width: 0.2, paddingLeft: 5}} align="left">{position.positionInfo.companyName}</StyledTableCell>
@@ -89,11 +89,11 @@ export default function JobsTable() {
   function renderActionCellContent(position){
     return(
       <Stack direction="row" spacing={1}>
-        <IconButton onClick={()=>{handleEditClick(position.id)}}>
+        <IconButton component={Link} to={`/positions/${position.id}`} state={position}>
           <EditIcon />
         </IconButton>
         <IconButton onClick={()=>{handleViewClick(position.id)}}>
-          <VisibilityIcon />
+          <DeleteIcon />
         </IconButton>
       </Stack>
     );
