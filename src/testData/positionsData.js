@@ -1,4 +1,5 @@
-import { HomeAssignment, Interview, NetworkConnection, Position, PositionInfo, QuestionsAndAnswer } from "../utils/position";
+import { HomeAssignment, Interview, NetworkConnection,
+    Position, PositionInfo, QuestionsAndAnswer, ProcessStep, ProcessStatus } from "../utils/position";
 
 const networkConnections = [
     new NetworkConnection("Yael davidov", "Software Developer", "https://www.linkedin.com/in/yael-davidov/", true),
@@ -25,7 +26,13 @@ const interviews = [
     new Interview(new Date(2023, 2, 15).toLocaleDateString(), "CTO interview", "need to do more leetcode questions"),
 ];
 
-const positionInfo =  new PositionInfo("Google", "lknfnw", "fullStack", 5, "not applied", "something", "C#, MySQL, js...");
+const processSteps = [
+    new ProcessStep('Connect with people', true),
+    new ProcessStep('Send CV', false),
+    new ProcessStep('Wait for response', false),
+];
+ 
+const positionInfo =  new PositionInfo("Google", "lknfnw", "fullStack", 5, processSteps, ProcessStatus.Pending , "something", "C#, MySQL, js...");
 
 const positions = new Map();
 const newPosition = new Position(positionInfo, interviews, questionsAndAnswers, homeAssignments, networkConnections);

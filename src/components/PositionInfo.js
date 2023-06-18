@@ -1,32 +1,9 @@
 import { useState } from 'react';
 import Box from '@mui/material/Box';
-import Step from '@mui/material/Step';
-import Stepper from '@mui/material/Stepper';
-import StepLabel from '@mui/material/StepLabel';
 import TextField from '@mui/material/TextField';
 import { Container, Typography } from '@mui/material';
+import PositionStatusStepper from './PositionStatusStepper';
 
-
-
-function PositionStatusStepper() {
-  const steps = [
-    'Select master blaster campaign settings',
-    'Create an ad group',
-    'Create an ad',
-  ];
-
-  return (
-    <Box sx={{ width: '100%', margin:5, mb:8}}>
-      <Stepper activeStep={1} alternativeLabel>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-    </Box>
-  );
-}
 
 export default function PositionInfo({ position }) {
   console.log(position);
@@ -50,7 +27,7 @@ export default function PositionInfo({ position }) {
       noValidate
       autoComplete="off"
     >
-      <PositionStatusStepper />
+      <PositionStatusStepper position={position} />
       <Container sx={{display: "flex", alignItems:"baseline"}} fixed>
         <Typography sx={{mr:2}}>
             Role: 
