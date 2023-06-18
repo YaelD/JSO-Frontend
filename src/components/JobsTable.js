@@ -1,18 +1,18 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
-import positions from '../testData/positionsData';
 import { styled } from '@mui/material/styles';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
 import TableHead from '@mui/material/TableHead';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
+import positions from '../testData/positionsData';
+import DeleteIcon from '@mui/icons-material/Delete';
 import TableContainer from '@mui/material/TableContainer';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import { Link } from 'react-router-dom';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -65,17 +65,32 @@ export default function JobsTable() {
     );
   }
 
+  function getPositionStep(steps){
+    let currStep;
+    if(steps?.length > 0){
+      currStep = steps.find(step => step.isCompletedStep === false);
+      if(!currStep){
+        return "Finished Steps";
+      }
+    }
+    if(!currStep){
+      return "None";
+    }
+    return currStep.step;
+  }
+
   function renderTableRows(){
     const positionsValues = Array.from(positions.values());
     return (
       <>
       {positionsValues.map((position)=>{
+        const processStep = getPositionStep(position.positionInfo.steps);        
         return(
           <StyledTableRow key={position.id}>
             <StyledTableCell sx={{width: 0.2, paddingLeft: 5}} align="left">{position.positionInfo.companyName}</StyledTableCell>
             <StyledTableCell sx={{width: 0.2}} align="left">{position.positionInfo.role}</StyledTableCell>
             <StyledTableCell sx={{width: 0.2, paddingLeft: 4}} align="left">{position.positionInfo.connections}</StyledTableCell>
-            <StyledTableCell sx={{width: 0.2}} align="left">{position.positionInfo.status}</StyledTableCell>
+            <StyledTableCell sx={{width: 0.2}} align="left">{processStep}</StyledTableCell>
             <StyledTableCell align="left" sx={{width: 0.2, paddingRight: 5}}>
               {renderActionCellContent(position)}
             </StyledTableCell>

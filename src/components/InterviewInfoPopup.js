@@ -99,7 +99,6 @@ export default function InterviewInfoPopup({ openPopup, handleClosePopup, interv
     });
   }
 
-
   function handleChangeFile(event) {
     setInterviewValue((prevInterviewValue)=>{
       const newInterview = {
