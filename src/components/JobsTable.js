@@ -47,7 +47,7 @@ export default function JobsTable() {
   ];
 
 
-  function handleViewClick(positionId){
+  function handleDeleteClick(positionId){
     console.log(positionId);
   }
 
@@ -107,7 +107,7 @@ export default function JobsTable() {
         <IconButton component={Link} to={`/positions/${position.id}`} state={position}>
           <EditIcon />
         </IconButton>
-        <IconButton onClick={()=>{handleViewClick(position.id)}}>
+        <IconButton onClick={()=>{handleDeleteClick(position.id)}}>
           <DeleteIcon />
         </IconButton>
       </Stack>

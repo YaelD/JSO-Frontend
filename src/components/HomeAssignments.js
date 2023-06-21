@@ -9,24 +9,15 @@ import CardContent from '@mui/material/CardContent';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CardActions from '@mui/material/CardActions';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import { handleDownloadFile } from '../utils/utilities';
 
 
 function FileCard({ file }){
 
-  function handleDownload(){
-    // Creating new object file
-    const fileURL = window.URL.createObjectURL(file);
-    // Setting various property values
-    let alink = document.createElement('a');
-    alink.href = fileURL;
-    alink.download = file.name;
-    alink.click();
-  }
-
     return (
         <Card sx={{ width: 275, height: 200 }} >
             <CardActions>
-                <IconButton aria-label="download" name="downloadButton" onClick={handleDownload}>
+                <IconButton aria-label="download" name="downloadButton" onClick={()=>handleDownloadFile(file)}>
                     <FileDownloadIcon />
                 </IconButton>
                 <IconButton aria-label="download" name="deleteButton" onClick={(event)=>{
@@ -54,6 +45,7 @@ function FileCard({ file }){
 export default function HomeAssignments({ position }) {
   const [fileList, setFileList] = useState(position.homeAssignments);
 
+  console.log(position.homeAssignments);
   const handleFileChange = (e) => {
     setFileList((prevFileList)=>{
       let newFileList = [...prevFileList, ...e.target.files];
@@ -61,29 +53,6 @@ export default function HomeAssignments({ position }) {
       return newFileList;
     });
   };
-
-//   const handleUploadClick = () => {
-//     if (!fileList) {
-//       return;
-//     }
-
-//     // 👇 Create new FormData object and append files
-//     const data = new FormData();
-//     files.forEach((file, i) => {
-//       data.append(`file-${i}`, file, file.name);
-//     });
-
-//     // 👇 Uploading the files using the fetch API to the server
-//     fetch('https://httpbin.org/post', {
-//       method: 'POST',
-//       body: data,
-//     })
-//       .then((res) => res.json())
-//       .then((data) => console.log(data))
-//       .catch((err) => console.error(err));
-//   };
-
-  // 👇 files is not an array, but it's iterable, spread to get an array of files
 
   return (
     <div>
