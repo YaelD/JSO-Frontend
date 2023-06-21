@@ -20,10 +20,10 @@ const questionsAndAnswers = [
 ]
 
 const interviews = [
-    new Interview(new Date(2023, 1, 15).toLocaleDateString(), "HR interview", "need to practice more"),
-    new Interview(new Date(2023, 1, 17).toLocaleDateString(), "Tech interview no.1", "need to do more leetcode questions"),
-    new Interview(new Date(2023, 1, 30).toLocaleDateString(), "Tech interview no.2", "need to do more leetcode questions"),
-    new Interview(new Date(2023, 2, 15).toLocaleDateString(), "CTO interview", "need to do more leetcode questions"),
+    new Interview(new Date(2023, 1, 15), "HR interview", "need to practice more"),
+    new Interview(new Date(2023, 1, 17), "Tech interview no.1", "need to do more leetcode questions"),
+    new Interview(new Date(2023, 1, 30), "Tech interview no.2", "need to do more leetcode questions"),
+    new Interview(new Date(2023, 2, 15), "CTO interview", "need to do more leetcode questions"),
 ];
 
 const processSteps = [

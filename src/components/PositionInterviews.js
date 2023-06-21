@@ -28,30 +28,30 @@ function InterviewCard({ interview, handleDeleteInterview }){
 
     return (
         <Card sx={{ width: 275 }} >
-            <CardActionArea onClick={handleOpenPopup}>
             <CardHeader
                 action={
-                    <IconButton aria-label="delete" name="deleteButton" onClick={(event)=>{
-                        handleDeleteInterview(interview);
-                        event.stopPropagation();
+                    <IconButton aria-label="delete" name="deleteButton"
+                        onClick={(event)=>{
+                            handleDeleteInterview(interview);
                         }}>
                         <DeleteIcon />
                     </IconButton>
                 }
-                subheader={interview.date}
+                subheader={interview.date.toLocaleDateString()}
             />
+            <CardActionArea onClick={handleOpenPopup}>
                 <CardContent>
-                    <Typography variant="h6" component="div">
+                    <Typography variant="h6" component="div" sx={{maxLines: 2, maxHeight: 50}}>
                         {interview.title} 
                     </Typography>
                 </CardContent>
             </CardActionArea>
-        <InterviewInfoPopup 
-            openPopup = {openPopupForEdit}
-            handleClosePopup = {handleClosePopup}
-            interview={interview}
-            isNewInterview={false}
-        />
+            <InterviewInfoPopup 
+                openPopup = {openPopupForEdit}
+                handleClosePopup = {handleClosePopup}
+                interview={interview}
+                isNewInterview={false}
+            />
         </Card>
     );
 }
