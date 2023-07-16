@@ -1,14 +1,48 @@
 import { useState } from 'react';
 import Box from '@mui/material/Box';
+import dayjs from 'dayjs';
 import TextField from '@mui/material/TextField';
 import { Container, Typography } from '@mui/material';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import PositionStatusStepper from './PositionStatusStepper';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+
+
+function PositionDatePicker({ date, handleChangePositionDate }) {
+
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DatePicker
+        name="date"
+        label="Date"
+        value={dayjs(date)}
+        inputFormat="DD/MM/YYYY"
+        onChange={(newValue) => {
+          console.log(newValue.toDate());
+          handleChangePositionDate(newValue.toDate());
+        }}
+        disableFuture={true}
+        renderInput={(params) => {
+          return (
+            <TextField 
+              {...params}
+              sx={{width:250, ml: 3, mt:2}}
+            />
+          );
+        }}
+      />
+    </LocalizationProvider>
+  );
+}
 
 
 export default function PositionInfo({ position }) {
   console.log(position);
 
   const [positionInfoValue, setPositionInfoValue] = useState(position.positionInfo);
+  const obj = Object.values(position);
+  console.log(obj.positionInfo);
   
   function handlePositionInfoChange(event){
     const {name, value} = event.target;
@@ -18,6 +52,18 @@ export default function PositionInfo({ position }) {
         [name]:value
       }
       position.positionInfo = newInfo;
+      return position.positionInfo;
+    });
+  }
+
+  function handleChangePositionDate(newDate){
+    setPositionInfoValue((prevInterviewValue)=>{
+      const newPositionInfo = {
+        ...prevInterviewValue,
+        date: newDate
+      }
+      position.positionInfo = newPositionInfo;
+      console.log(newPositionInfo);
       return position.positionInfo;
     });
   }
@@ -67,6 +113,7 @@ export default function PositionInfo({ position }) {
           sx={{width:"50ch"}}
           onChange={handlePositionInfoChange}
         />
+        <PositionDatePicker sx={{mb:5}} date={positionInfoValue.date} handleChangePositionDate={handleChangePositionDate}/>
       </Container>
       <Container fixed>
         <Typography sx={{mt:5}}>

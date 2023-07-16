@@ -63,7 +63,6 @@ export default function PositionInterviews({ position }) {
 
     function handleAddingNewInterview(newInterview){
         const newInterviews = [...interviewsValue, newInterview];
-        console.log(newInterview.id);
         setInterviewsValue(newInterviews);
         position.interviews = newInterviews;
     }

@@ -30,7 +30,7 @@ export class QuestionsAndAnswer{
 
 export class Interview{
     static idNumber = 1;
-    constructor(date, title, conclusions, file){
+    constructor(date=new Date(), title = "", conclusions = "", file = null){
         this.date = date;
         this.title = title;
         this.conclusions = conclusions;
@@ -57,6 +57,7 @@ export class ProcessStep{
 export class PositionInfo{
     static idNumber = 1;
     constructor(companyName, positionLink, role, connections, steps, status, about, techStack){
+        this.date = new Date();
         this.companyName = companyName;
         this.positionLink = positionLink;
         this.role = role;

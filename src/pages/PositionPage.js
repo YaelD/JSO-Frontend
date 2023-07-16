@@ -2,15 +2,14 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
+import Stack from '@mui/material/Stack';
+import Network from '../components/Network';
 import { Button, Container } from '@mui/material';
 import PositionInfo from '../components/PositionInfo';
+import HomeAssignments from '../components/HomeAssignments';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PositionInterviews from '../components/PositionInterviews';
 import QuestionsForInterviewers from '../components/QuestionsForInterviewers';
-import HomeAssignments from '../components/HomeAssignments';
-import Network from '../components/Network';
-import Stack from '@mui/material/Stack';
-import positions from '../testData/positionsData';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -32,7 +31,6 @@ export default function PositionPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const [value, setValue] = useState(0);
-
   const position = location.state;
   console.log(position);
 
@@ -41,11 +39,13 @@ export default function PositionPage() {
   };
 
   function handleSave(){
-    const currPositions = positions;
-    if(!currPositions.has(position)){
-      currPositions.set(position.id, position);
-    }
+    
+    // if(position.id > allPositions.length){
+
+    //   allPositions.push(position);
+    // }
     navigate(-1); //go back to the previous url
+    console.log(position);
   }
 
   function handleCancel(){
@@ -59,15 +59,13 @@ export default function PositionPage() {
           <Button variant="contained" onClick={handleSave}>save</Button>
           <Button variant="contained" onClick={handleCancel}>cancel</Button>
         </Stack>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Position info" wrapped />
-          <Tab label="Interviews" wrapped />
-          <Tab label="Interviews practice" wrapped />
-          <Tab label="Questions for interviewers" wrapped />
-          <Tab label="Home assignments" wrapped />
-          <Tab label="Rating" wrapped />
-          <Tab label="Network" wrapped />
-          <Tab label="TODO List" wrapped />
+        <Tabs value={value} onChange={handleChange}>
+          <Tab label="Position info" />
+          <Tab label="Interviews" />
+          <Tab label="Questions for interviewers" />
+          <Tab label="Home assignments" />
+          <Tab label="Network" />
+          <Tab label="TODO List" />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -81,24 +79,21 @@ export default function PositionPage() {
         />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-      <TabPanel value={value} index={3}>
         <QuestionsForInterviewers 
           position={position}
         />
       </TabPanel>
-      <TabPanel value={value} index={4}>
+      <TabPanel value={value} index={3}>
         <HomeAssignments 
           position={position}
         />
       </TabPanel>
-      <TabPanel value={value} index={5}>
-      </TabPanel>
-      <TabPanel value={value} index={6}>
+      <TabPanel value={value} index={4}>
         <Network
           position={position}
         />
+      </TabPanel>
+      <TabPanel value={value} index={5}>
       </TabPanel>
     </Box>
   );
