@@ -31,7 +31,6 @@ function InterviewDatePicker({ isEditMode, date, handleChangeInterviewDate }) {
           console.log(newValue.toDate());
           handleChangeInterviewDate(newValue.toDate());
         }}
-        disableFuture={true}
         renderInput={(params) => {
           return (
             <TextField 

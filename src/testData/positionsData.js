@@ -34,9 +34,12 @@ const processSteps = [
  
 const positionInfo =  new PositionInfo("Google", "lknfnw", "fullStack", 5, processSteps, ProcessStatus.Pending , "something", "C#, MySQL, js...");
 
-const positions = new Map();
+const positions = {"positions" : []};
 const newPosition = new Position(positionInfo, interviews, questionsAndAnswers, homeAssignments, networkConnections);
+const positionId = newPosition.id;
 
-positions.set(newPosition.id, newPosition);
+const positionsArr = positions["positions"];
+positionsArr.push(newPosition);
+console.log(JSON.stringify(positions));
 
 export default positions;

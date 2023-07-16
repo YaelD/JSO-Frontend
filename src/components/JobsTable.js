@@ -9,10 +9,10 @@ import TableBody from '@mui/material/TableBody';
 import TableHead from '@mui/material/TableHead';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
-import positions from '../testData/positionsData';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TableContainer from '@mui/material/TableContainer';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import { useGetAllPositions } from '../utils/apiCalls';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -39,10 +39,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function JobsTable() {
 
   const tableCells = [
+    "Creation date",
     "Company Name",
     "Position",
     "Connections",
     "Status",
+    "Step",
     "Actions"
   ];
 
@@ -51,17 +53,15 @@ export default function JobsTable() {
     console.log(positionId);
   }
 
-  function renderTableHead(){
+  function TableHeader(){
     return(
-      <>
-          <TableRow>
-            {tableCells.map((cell)=>{
-              return(
-                <StyledTableCell key={cell} align="left">{cell}</StyledTableCell>
-              ); 
-            })}
-          </TableRow>
-      </>
+      <TableRow>
+        {tableCells.map((cell)=>{
+          return(
+            <StyledTableCell key={cell} align="left">{cell}</StyledTableCell>
+          ); 
+        })}
+      </TableRow>
     );
   }
 
@@ -79,20 +79,25 @@ export default function JobsTable() {
     return currStep.step;
   }
 
-  function renderTableRows(){
-    const positionsValues = Array.from(positions.values());
+  function TableRows(){
+    const positionsValues = useGetAllPositions();
+    console.log(positionsValues);
     return (
       <>
       {positionsValues.map((position)=>{
-        const processStep = getPositionStep(position.positionInfo.steps);        
+        console.log(position);
+        const processStep = getPositionStep(position.positionInfo.steps);
+        const positionDate = position.positionInfo.date;
         return(
           <StyledTableRow key={position.id}>
-            <StyledTableCell sx={{width: 0.2, paddingLeft: 5}} align="left">{position.positionInfo.companyName}</StyledTableCell>
+            <StyledTableCell sx={{width: 0.2, paddingLeft: 2}} align="left">{positionDate.toLocaleDateString('en-GB')}</StyledTableCell>
+            <StyledTableCell sx={{width: 0.2, paddingLeft: 1}} align="left">{position.positionInfo.companyName}</StyledTableCell>
             <StyledTableCell sx={{width: 0.2}} align="left">{position.positionInfo.role}</StyledTableCell>
-            <StyledTableCell sx={{width: 0.2, paddingLeft: 4}} align="left">{position.positionInfo.connections}</StyledTableCell>
+            <StyledTableCell sx={{width: 0.2, paddingLeft: 1}} align="left">{position.positionInfo.connections}</StyledTableCell>
+            <StyledTableCell sx={{width: 0.2, paddingLeft: 1}} align="left">{position.positionInfo.status}</StyledTableCell>
             <StyledTableCell sx={{width: 0.2}} align="left">{processStep}</StyledTableCell>
             <StyledTableCell align="left" sx={{width: 0.2, paddingRight: 5}}>
-              {renderActionCellContent(position)}
+              <ActionCellContent position = {position} />
             </StyledTableCell>
           </StyledTableRow>
         );
@@ -101,7 +106,7 @@ export default function JobsTable() {
     );
   }
 
-  function renderActionCellContent(position){
+  function ActionCellContent({position}){
     return(
       <Stack direction="row" spacing={1}>
         <IconButton component={Link} to={`/positions/${position.id}`} state={position}>
@@ -118,10 +123,10 @@ export default function JobsTable() {
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table" stickyHeader={true}>
         <TableHead>
-          {renderTableHead()}
+          <TableHeader />
         </TableHead>
         <TableBody>
-        {renderTableRows()}
+          <TableRows />
         </TableBody>
       </Table>
     </TableContainer>

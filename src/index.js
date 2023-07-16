@@ -1,18 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import ClosedProcesses from './pages/ClosedProcesses';
-import HomePage from './pages/HomePage';
-import Networking from './pages/Networking';
-import OpenProcesses from './pages/OpenProcesses';
-import PendingProcesses from './pages/PendingProcesses';
-import PositionPage from './pages/PositionPage';
-import RootPage from './pages/RootPage';
+import Jobs from './pages/Jobs';
+import Todos from './pages/Todos';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import ReactDOM from 'react-dom/client';
+import HomePage from './pages/HomePage';
+import RootPage from './pages/RootPage';
+import PositionPage from './pages/PositionPage';
+import { createBrowserRouter, RouterProvider} from "react-router-dom";
  
 
 const router = createBrowserRouter([
@@ -41,20 +36,12 @@ const router = createBrowserRouter([
         element: <HomePage />,
         children: [
           {
-            path: "pending-processes",
-            element: <PendingProcesses />,
+            path: "jobs",
+            element: <Jobs />,
           },
           {
-            path: "open-processes",
-            element: <OpenProcesses />
-          },
-          {
-            path: "closed-processes",
-            element: <ClosedProcesses />
-          },
-          {
-            path: "networking",
-            element: <Networking />
+            path: "todos",
+            element: <Todos />
           },
         ],
       }
