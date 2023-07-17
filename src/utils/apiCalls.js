@@ -33,21 +33,50 @@ export const useGetAllPositions = () => {
     return positions;
 }
 
-export const usePostNewPosition = (position) => {
+export const usePostNewPosition = () => {
     const [newPosition, setNewPosition] = useState(null);
-    useEffect(() => {
-        const postNewPosition = async() => {
-            try{
-                const res = await instance.post('/positions', JSON.stringify(position));
-                console.log(res.data);
-                console.log(res.status);
-                setNewPosition(res.data);
-            }
-            catch(error){
-                console.error(error);
-            }
+    const postNewPosition = async(position) => {
+        try{
+            const res = await instance.post('/positions', position);
+            console.log(res.data);
+            console.log(res.status);
+            setNewPosition(res.data);
         }
-        postNewPosition();
-    }, []);
-    return newPosition;
+        catch(error){
+            console.error(error);
+        }
+    }
+    return { postNewPosition, newPosition };
+}
+
+export const usePutNewPosition = () => {
+    const [updatedPosition, setUpdatedPosition] = useState(null);
+    const putPosition = async(position) => {
+        try{
+            const res = await instance.put(`/positions/${position.id}`, position);
+            console.log(res.data);
+            console.log(res.status);
+            setUpdatedPosition(res.data);
+        }
+        catch(error){
+            console.error(error);
+        }
+    }
+    return { putPosition, updatedPosition };
+}
+
+export const useDeletePosition = () => {
+    const[deletedPosition, setDeletedPosition] = useState(null);
+    const deletePosition = async(position) =>{
+        try{
+            const res = await instance.delete(`/positions/${position.id}`, position);
+            console.log(res.data);
+            console.log(res.status);
+            setDeletedPosition(res.data);
+        }
+        catch(error){
+            console.error(error);
+        }
+    }
+    return { deletePosition, deletedPosition };
 }

@@ -2,8 +2,8 @@
   "positions": [
     {
       "positionInfo": {
-        "date": "2023-07-12T14:26:34.142Z",
-        "companyName": "Google",
+        "date": "2023-07-11T14:26:34.000Z",
+        "companyName": "Google jnknknkn",
         "positionLink": "lknfnw",
         "role": "fullStack",
         "connections": 5,
@@ -31,7 +31,7 @@
       },
       "interviews": [
         {
-          "date": "2023-02-14T22:00:00.000Z",
+          "date": "2023-02-15T22:00:00.000Z",
           "title": "HR interview",
           "conclusions": "need to practice more",
           "file": null,
@@ -82,9 +82,7 @@
             "../testData/files/file1.docx"
           ],
           "name": "file1.docx",
-          "file": {
-            
-          },
+          "file": {},
           "id": 1
         },
         {
@@ -92,9 +90,7 @@
             "../testData/files/file2.docx"
           ],
           "name": "file2.docx",
-          "file": {
-            
-          },
+          "file": {},
           "id": 2
         },
         {
@@ -102,9 +98,7 @@
             "../testData/files/file3.pdf"
           ],
           "name": "file3.pdf",
-          "file": {
-            
-          },
+          "file": {},
           "id": 3
         }
       ],

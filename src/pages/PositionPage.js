@@ -10,6 +10,7 @@ import HomeAssignments from '../components/HomeAssignments';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PositionInterviews from '../components/PositionInterviews';
 import QuestionsForInterviewers from '../components/QuestionsForInterviewers';
+import { usePostNewPosition, usePutNewPosition } from '../utils/apiCalls';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -32,6 +33,8 @@ export default function PositionPage() {
   const navigate = useNavigate();
   const [value, setValue] = useState(0);
   const position = location.state;
+  const {postNewPosition, newPosition} = usePostNewPosition();
+  const {putPosition, updatedPosition} = usePutNewPosition();
   console.log(position);
 
   const handleChange = (event, newValue) => {
@@ -39,11 +42,12 @@ export default function PositionPage() {
   };
 
   function handleSave(){
-    
-    // if(position.id > allPositions.length){
-
-    //   allPositions.push(position);
-    // }
+    if(!position.id){
+      postNewPosition(position);
+    }
+    else{
+      putPosition(position);
+    }
     navigate(-1); //go back to the previous url
     console.log(position);
   }
