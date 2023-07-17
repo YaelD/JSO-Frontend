@@ -71,13 +71,13 @@ export class PositionInfo{
 }
 
 export class Position{
-    static idNumber = 1;
+    // static idNumber = 1;
     constructor(positionInfo = new PositionInfo(), interviews = [], questionsAndAnswers = [], homeAssignments = [], networkConnections = []){
         this.positionInfo = positionInfo;
         this.interviews = interviews;
         this.questionsAndAnswers = questionsAndAnswers;
         this.homeAssignments = homeAssignments;
         this.networkConnections = networkConnections;
-        this.id = Position.idNumber++;
+        // this.id = Position.idNumber++;
     }
 }

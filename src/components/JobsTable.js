@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TableContainer from '@mui/material/TableContainer';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import { useGetAllPositions } from '../utils/apiCalls';
+import { useDeletePosition, useGetAllPositions } from '../utils/apiCalls';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -37,6 +37,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 export default function JobsTable() {
+  const {deletePosition, deletedPosition} = useDeletePosition();
 
   const tableCells = [
     "Creation date",
@@ -49,8 +50,8 @@ export default function JobsTable() {
   ];
 
 
-  function handleDeleteClick(positionId){
-    console.log(positionId);
+  function handleDeleteClick(position){
+    deletePosition(position);
   }
 
   function TableHeader(){
@@ -112,7 +113,7 @@ export default function JobsTable() {
         <IconButton component={Link} to={`/positions/${position.id}`} state={position}>
           <EditIcon />
         </IconButton>
-        <IconButton onClick={()=>{handleDeleteClick(position.id)}}>
+        <IconButton onClick={()=>{handleDeleteClick(position)}}>
           <DeleteIcon />
         </IconButton>
       </Stack>
