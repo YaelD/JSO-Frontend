@@ -155,7 +155,6 @@ export default function QuestionsForInterviewers({ position }) {
         setQuestionValue('');
         const newQuestionAndAnswer = new QuestionsAndAnswer(questionValue, "");
         const newQuestionsAndAnswers = [...questionsAndAnswersValue, newQuestionAndAnswer];
-        console.log(newQuestionAndAnswer.id);
         setQuestionsAndAnswers(newQuestionsAndAnswers);
         position.questionsAndAnswers = newQuestionsAndAnswers;
     }

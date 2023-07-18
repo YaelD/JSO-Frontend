@@ -222,7 +222,6 @@ export default function Network({ position }) {
 
     function handleAddNewConnection(newConnection){
         const newConnections = [...networkConnectionsValue, newConnection];
-        console.log(newConnection.id);
         setNetworkConnectionsValue(newConnections);
         position.networkConnections = newConnections;
     }
