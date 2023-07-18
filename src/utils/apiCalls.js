@@ -10,19 +10,19 @@ const instance = axios.create({
 
 export const useGetAllPositions = () => {
     const [positions, setPositions] = useState([]);
+    const [isPositionsLoaded, setIsPositionsLoaded] = useState(false);
     useEffect(() => {
         const fetchPositions = async () => {
             try{
                 const res = await instance.get('/positions');
-                console.log(res.data);
                 res.data.map((position)=>{
                     position.positionInfo.date = new Date(Date.parse(position.positionInfo.date));
                     position.interviews.map((interview) => {
                         interview.date = new Date(Date.parse(interview.date));
                     })
                 })
-                console.log(res.data);
                 setPositions(res.data);
+                setIsPositionsLoaded(true);
             }
             catch(error){
                 console.error(error);
@@ -30,7 +30,7 @@ export const useGetAllPositions = () => {
         }
         fetchPositions();
     }, []);
-    return positions;
+    return {positions, isPositionsLoaded};
 }
 
 export const usePostNewPosition = () => {
@@ -38,8 +38,6 @@ export const usePostNewPosition = () => {
     const postNewPosition = async(position) => {
         try{
             const res = await instance.post('/positions', position);
-            console.log(res.data);
-            console.log(res.status);
             setNewPosition(res.data);
         }
         catch(error){
@@ -54,8 +52,6 @@ export const usePutNewPosition = () => {
     const putPosition = async(position) => {
         try{
             const res = await instance.put(`/positions/${position.id}`, position);
-            console.log(res.data);
-            console.log(res.status);
             setUpdatedPosition(res.data);
         }
         catch(error){
@@ -70,8 +66,6 @@ export const useDeletePosition = () => {
     const deletePosition = async(position) =>{
         try{
             const res = await instance.delete(`/positions/${position.id}`, position);
-            console.log(res.data);
-            console.log(res.status);
             setDeletedPosition(res.data);
         }
         catch(error){

@@ -126,6 +126,29 @@
         }
       ],
       "id": 1
+    },
+    {
+      "positionInfo": {
+        "date": "2023-07-17T14:50:09.218Z",
+        "steps": [
+          {
+            "step": "Connect with people",
+            "isCompletedStep": false,
+            "id": 3
+          },
+          {
+            "step": "Send CV",
+            "isCompletedStep": false,
+            "id": 4
+          }
+        ],
+        "id": 2
+      },
+      "interviews": [],
+      "questionsAndAnswers": [],
+      "homeAssignments": [],
+      "networkConnections": [],
+      "id": 2
     }
   ]
 }
