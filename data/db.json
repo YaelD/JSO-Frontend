@@ -2,9 +2,9 @@
   "positions": [
     {
       "positionInfo": {
-        "date": "2023-07-11T14:26:34.000Z",
-        "companyName": "Google jnknknkn",
-        "positionLink": "lknfnw",
+        "date": "2023-07-18T08:19:17.784Z",
+        "companyName": "kjhk",
+        "positionLink": "https://www.linkedin.com/jobs/view/3555287254",
         "role": "fullStack",
         "connections": 5,
         "steps": [
@@ -24,9 +24,9 @@
             "id": 3
           }
         ],
-        "status": "pending process",
-        "about": "something",
-        "techStack": "C#, MySQL, js...",
+        "status": "closed process",
+        "about": "Google LLC is an American multinational technology company focusing on artificial intelligence, online advertising, search engine technology, cloud computing, computer software, quantum computing, e-commerce, and consumer electronics.",
+        "techStack": [],
         "id": 1
       },
       "interviews": [
@@ -126,29 +126,6 @@
         }
       ],
       "id": 1
-    },
-    {
-      "positionInfo": {
-        "date": "2023-07-17T14:50:09.218Z",
-        "steps": [
-          {
-            "step": "Connect with people",
-            "isCompletedStep": false,
-            "id": 3
-          },
-          {
-            "step": "Send CV",
-            "isCompletedStep": false,
-            "id": 4
-          }
-        ],
-        "id": 2
-      },
-      "interviews": [],
-      "questionsAndAnswers": [],
-      "homeAssignments": [],
-      "networkConnections": [],
-      "id": 2
     }
   ]
 }

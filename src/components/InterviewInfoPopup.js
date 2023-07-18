@@ -28,7 +28,6 @@ function InterviewDatePicker({ isEditMode, date, handleChangeInterviewDate }) {
         inputFormat="DD/MM/YYYY"
         disabled={isEditMode ? false : true}
         onChange={(newValue) => {
-          console.log(newValue.toDate());
           handleChangeInterviewDate(newValue.toDate());
         }}
         renderInput={(params) => {
@@ -89,7 +88,6 @@ export default function InterviewInfoPopup({ openPopup, handleClosePopup, interv
         ...prevInterviewValue,
         date: newDate
       }
-      console.log(newInterview);
       return newInterview;
     });
   }

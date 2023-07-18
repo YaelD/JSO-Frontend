@@ -120,7 +120,6 @@ const tableCells = [
 ];
 
 function TableRows({positionsValues, handleDeleteClick}){
-  console.log(positionsValues);
 
   function getPositionStep(steps){
     let currStep;
@@ -139,7 +138,6 @@ function TableRows({positionsValues, handleDeleteClick}){
   return (
     <>
     {positionsValues.map((position)=>{
-      console.log(position);
       const processStep = getPositionStep(position.positionInfo.steps);
       const positionDate = position.positionInfo.date;
       return(

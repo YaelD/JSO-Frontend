@@ -11,17 +11,18 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import PositionInterviews from '../components/PositionInterviews';
 import QuestionsForInterviewers from '../components/QuestionsForInterviewers';
 import { usePostNewPosition, usePutNewPosition } from '../utils/apiCalls';
+import Toolbar from '@mui/material/Toolbar';
+import { ProcessStatus } from '../utils/position';
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
 
+function TabPanel({ children, value, index }) {
   return (
     <>
       {value === index && (
         <Box sx={{ p: 3 }}>
           <Container fixed maxWidth='lg'>
             {children}
-          </Container> 
+          </Container>
         </Box>
       )}
     </>
@@ -33,37 +34,42 @@ export default function PositionPage() {
   const navigate = useNavigate();
   const [value, setValue] = useState(0);
   const position = location.state;
-  const {postNewPosition, newPosition} = usePostNewPosition();
-  const {putPosition, updatedPosition} = usePutNewPosition();
-  console.log(position);
+  const { postNewPosition, newPosition } = usePostNewPosition();
+  const { putPosition, updatedPosition } = usePutNewPosition();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  function handleSave(){
-    if(!position.id){
+  function handleSave() {
+    if (!position.id) {
       postNewPosition(position);
     }
-    else{
+    else {
       putPosition(position);
     }
     navigate(-1); //go back to the previous url
-    console.log(position);
   }
 
-  function handleCancel(){
+  function handleCancel() {
+    navigate(-1);
+  }
+
+  function handleClosePosition() {
+    position.positionInfo.status = ProcessStatus.Closed;
+    putPosition(position);
     navigate(-1);
   }
 
   return (
-    <Box sx={{ width: '100%', m: 10 }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', width:"100%" }}>
-        <Stack spacing={2} direction="row" sx={{ justifyContent: "flex-end" }}>
-          <Button variant="contained" onClick={handleSave}>save</Button>
-          <Button variant="contained" onClick={handleCancel}>cancel</Button>
-        </Stack>
-        <Tabs value={value} onChange={handleChange}>
+    <Box sx={{ width: '100%', }}>
+      <Toolbar />
+      <Stack position="fixed" direction="row"
+        sx={{
+          borderBottom: 1, opacity: 1, width: "100%", pr: 5, pl: 5, backgroundColor: "white",
+          zIndex: (theme) => theme.zIndex.drawer + 1
+        }}>
+        <Tabs value={value} onChange={handleChange} variant="scrollable" sx={{ width: "100%" }}>
           <Tab label="Position info" />
           <Tab label="Interviews" />
           <Tab label="Questions for interviewers" />
@@ -71,24 +77,31 @@ export default function PositionPage() {
           <Tab label="Network" />
           <Tab label="TODO List" />
         </Tabs>
-      </Box>
+        <Stack spacing={2} direction="row" sx={{ justifyContent: "flex-end", alignItems: "center", overflow: "visible" }}>
+          <Button variant="contained" size="small" onClick={handleSave} >save</Button>
+          <Button variant="contained" size="small" onClick={handleCancel} >cancel</Button>
+          <Button variant="contained" color="error" size="small" onClick={handleClosePosition} >Close</Button>
+
+        </Stack>
+      </Stack>
+      <Toolbar />
       <TabPanel value={value} index={0}>
-        <PositionInfo 
+        <PositionInfo
           position={position}
         />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <PositionInterviews 
+        <PositionInterviews
           position={position}
         />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <QuestionsForInterviewers 
+        <QuestionsForInterviewers
           position={position}
         />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <HomeAssignments 
+        <HomeAssignments
           position={position}
         />
       </TabPanel>

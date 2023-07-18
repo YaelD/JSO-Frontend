@@ -45,7 +45,6 @@ function FileCard({ file }){
 export default function HomeAssignments({ position }) {
   const [fileList, setFileList] = useState(position.homeAssignments);
 
-  console.log(position.homeAssignments);
   const handleFileChange = (e) => {
     setFileList((prevFileList)=>{
       let newFileList = [...prevFileList, ...e.target.files];
