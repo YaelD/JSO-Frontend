@@ -151,8 +151,8 @@ function ConnectionListItem({connection, handleChangeConnections}){
             alignItems="flex-start"
             onClick={handleListItemClick}
             secondaryAction={
-              <IconButton edge="end" aria-label="delete">
-                <DeleteIcon onClick={handleDeleteBtnClick}/>
+              <IconButton edge="end" aria-label="delete" onClick={handleDeleteBtnClick}>
+                <DeleteIcon />
               </IconButton>
             }
             sx={{width:0.8}}
