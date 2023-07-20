@@ -70,14 +70,24 @@ export class PositionInfo{
     }
 }
 
+export class Todo{
+    static idNumber = 1;
+    constructor(todo = "", isCompleted = false){
+        this.todo = todo;
+        this.isCompleted = isCompleted;
+        this.id = Todo.idNumber++;
+    }
+}
+
 export class Position{
     // static idNumber = 1;
-    constructor(positionInfo = new PositionInfo(), interviews = [], questionsAndAnswers = [], homeAssignments = [], networkConnections = []){
+    constructor(positionInfo = new PositionInfo(), interviews = [], questionsAndAnswers = [], homeAssignments = [], networkConnections = [], todoList = []){
         this.positionInfo = positionInfo;
         this.interviews = interviews;
         this.questionsAndAnswers = questionsAndAnswers;
         this.homeAssignments = homeAssignments;
         this.networkConnections = networkConnections;
+        this.todoList = todoList;
         // this.id = Position.idNumber++;
     }
 }

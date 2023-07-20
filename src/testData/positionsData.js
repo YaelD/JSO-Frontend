@@ -1,5 +1,5 @@
 import { HomeAssignment, Interview, NetworkConnection,
-    Position, PositionInfo, QuestionsAndAnswer, ProcessStep, ProcessStatus } from "../utils/position";
+    Position, PositionInfo, QuestionsAndAnswer, ProcessStep, ProcessStatus, Todo } from "../utils/position";
 
 const networkConnections = [
     new NetworkConnection("Yael davidov", "Software Developer", "https://www.linkedin.com/in/yael-davidov/", true),
@@ -31,15 +31,22 @@ const processSteps = [
     new ProcessStep('Send CV', false),
     new ProcessStep('Wait for response', false),
 ];
+
+const todoList = [
+    new Todo('hug Matan'),
+    new Todo('send CV', true),
+    new Todo('to do home assignment'),
+    new Todo('learn SQL', true)
+]
  
 const positionInfo =  new PositionInfo("Google", "lknfnw", "fullStack", 5, processSteps, ProcessStatus.Pending , "something", "C#, MySQL, js...");
 
 const positions = {"positions" : []};
-const newPosition = new Position(positionInfo, interviews, questionsAndAnswers, homeAssignments, networkConnections);
+const newPosition = new Position(positionInfo, interviews, questionsAndAnswers, homeAssignments, networkConnections, todoList);
 const positionId = newPosition.id;
 
 const positionsArr = positions["positions"];
 positionsArr.push(newPosition);
-console.log(JSON.stringify(positions));
+// console.log(JSON.stringify(positions));
 
 export default positions;

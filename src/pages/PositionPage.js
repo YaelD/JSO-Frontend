@@ -1,18 +1,19 @@
 import { useState } from 'react';
-import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Stack from '@mui/material/Stack';
 import Network from '../components/Network';
+import Toolbar from '@mui/material/Toolbar';
 import { Button, Container } from '@mui/material';
+import { ProcessStatus } from '../utils/position';
 import PositionInfo from '../components/PositionInfo';
 import HomeAssignments from '../components/HomeAssignments';
 import { useLocation, useNavigate } from 'react-router-dom';
+import PositionTodoList from '../components/PositionTodoList';
 import PositionInterviews from '../components/PositionInterviews';
-import QuestionsForInterviewers from '../components/QuestionsForInterviewers';
 import { usePostNewPosition, usePutNewPosition } from '../utils/apiCalls';
-import Toolbar from '@mui/material/Toolbar';
-import { ProcessStatus } from '../utils/position';
+import QuestionsForInterviewers from '../components/QuestionsForInterviewers';
 
 
 function TabPanel({ children, value, index }) {
@@ -86,31 +87,22 @@ export default function PositionPage() {
       </Stack>
       <Toolbar />
       <TabPanel value={value} index={0}>
-        <PositionInfo
-          position={position}
-        />
+        <PositionInfo position={position} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <PositionInterviews
-          position={position}
-        />
+        <PositionInterviews position={position} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <QuestionsForInterviewers
-          position={position}
-        />
+        <QuestionsForInterviewers position={position} />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <HomeAssignments
-          position={position}
-        />
+        <HomeAssignments position={position} />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        <Network
-          position={position}
-        />
+        <Network position={position} />
       </TabPanel>
       <TabPanel value={value} index={5}>
+        <PositionTodoList position={position} />
       </TabPanel>
     </Box>
   );

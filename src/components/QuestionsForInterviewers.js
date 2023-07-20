@@ -18,7 +18,6 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import DialogContentText from '@mui/material/DialogContentText';
 
 
-
 function PopupEditQuestionAndAnswer({ questionAndAnswer, handleCloseEditPopup, openEditPopup, onUpdateQuestion }){
     const [questionAndAnswerValue, setQuestionAndAnswerValue] = useState(questionAndAnswer);
 
