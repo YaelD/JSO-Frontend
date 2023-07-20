@@ -1,79 +1,83 @@
 {
   "positions": [
     {
+      "id": 1,
       "positionInfo": {
         "date": "2023-07-18T16:29:15.030Z",
         "companyName": "Google",
-        "positionLink": "lknfnw",
+        "positionLink": "lknfnw kelfnkjne",
         "role": "fullStack",
         "connections": 5,
         "steps": [
           {
             "step": "Connect with people",
             "isCompletedStep": true,
-            "id": 8
+            "id": 1
           },
           {
             "step": "Send CV",
-            "isCompletedStep": false,
-            "id": 9
+            "isCompletedStep": true,
+            "id": 2
           },
           {
             "step": "Wait for response",
             "isCompletedStep": false,
-            "id": 10
+            "id": 3
           }
         ],
-        "status": "pending process",
-        "about": "something",
-        "techStack": [],
-        "id": 3
+        "status": "closed process",
+        "about": "something leknflnleknf",
+        "techStack": [
+          "eflknqln",
+          "lekmflm"
+        ],
+        "id": 1
       },
       "interviews": [
         {
           "date": "2023-02-14T22:00:00.000Z",
           "title": "HR interview",
-          "conclusions": "need to practice more",
+          "conclusions": "need to practice more nkjnkn",
           "file": null,
-          "id": 5
+          "id": 1
         },
         {
           "date": "2023-02-16T22:00:00.000Z",
           "title": "Tech interview no.1",
           "conclusions": "need to do more leetcode questions",
           "file": null,
-          "id": 6
+          "id": 2
         },
         {
           "date": "2023-03-01T22:00:00.000Z",
           "title": "Tech interview no.2",
           "conclusions": "need to do more leetcode questions",
           "file": null,
-          "id": 7
+          "id": 3
         },
         {
           "date": "2023-03-14T22:00:00.000Z",
           "title": "CTO interview",
           "conclusions": "need to do more leetcode questions",
           "file": null,
-          "id": 8
+          "id": 4
         }
       ],
       "questionsAndAnswers": [
         {
           "question": "What is the tech stack?",
           "answer": "Java, MySQL, JS, React",
-          "id": 4
+          "id": 1
         },
         {
           "question": "What is the tech stack?",
           "answer": "Java, MySQL, JS, React",
-          "id": 5
+          "id": 2
         },
         {
           "question": "How many steps are there in the process?",
           "answer": "",
-          "id": 6
+          "id": 3
         }
       ],
       "homeAssignments": [
@@ -82,30 +86,24 @@
             "../testData/files/file1.docx"
           ],
           "name": "file1.docx",
-          "file": {
-            
-          },
-          "id": 4
+          "file": {},
+          "id": 1
         },
         {
           "path": [
             "../testData/files/file2.docx"
           ],
           "name": "file2.docx",
-          "file": {
-            
-          },
-          "id": 5
+          "file": {},
+          "id": 2
         },
         {
           "path": [
             "../testData/files/file3.pdf"
           ],
           "name": "file3.pdf",
-          "file": {
-            
-          },
-          "id": 6
+          "file": {},
+          "id": 3
         }
       ],
       "networkConnections": [
@@ -114,21 +112,21 @@
           "role": "Software Developer",
           "linkToLinkedin": "https://www.linkedin.com/in/yael-davidov/",
           "appliedMe": true,
-          "id": 4
+          "id": 1
         },
         {
           "name": "Eldar Sehayek",
           "role": "Senior Software Architect",
           "linkToLinkedin": "https://www.linkedin.com/in/eldar-sehayek/",
           "appliedMe": false,
-          "id": 5
+          "id": 2
         },
         {
           "name": "Matan Peretz",
           "role": "Software Developer",
           "linkToLinkedin": "https://www.linkedin.com/in/matan-peretz/",
           "appliedMe": false,
-          "id": 6
+          "id": 3
         }
       ],
       "todoList": [

@@ -1,17 +1,17 @@
 export class NetworkConnection{
     static idNumber = 1;
-    constructor(name, role, linkToLinkedin, appliedMe){
+    constructor(name = "", role = "", linkToLinkedin = "", appliedMe = false){
         this.name = name;
         this.role = role;
         this.linkToLinkedin = linkToLinkedin;
-        this.appliedMe = appliedMe ?? false;
+        this.appliedMe = appliedMe;
         this.id = NetworkConnection.idNumber++;
     }
 }
 
 export class HomeAssignment{
     static idNumber = 1;
-    constructor(path, name){
+    constructor(path = "", name = ""){
         this.path = path;
         this.name = name;
         this.file = new File([path], name);
@@ -21,7 +21,7 @@ export class HomeAssignment{
 
 export class QuestionsAndAnswer{
     static idNumber = 1;
-    constructor(question, answer){
+    constructor(question = "", answer = ""){
         this.question = question;
         this.answer = answer;
         this.id = QuestionsAndAnswer.idNumber++;
@@ -47,16 +47,16 @@ export const ProcessStatus = {
 
 export class ProcessStep{
     static idNumber = 1;
-    constructor(step, isCompletedStep){
+    constructor(step = "", isCompletedStep = false){
         this.step = step;
-        this.isCompletedStep = isCompletedStep ?? false;
+        this.isCompletedStep = isCompletedStep;
         this.id = ProcessStep.idNumber++;
     }
 }
 
 export class PositionInfo{
     static idNumber = 1;
-    constructor(companyName, positionLink, role, connections, steps, status, about, techStack){
+    constructor(companyName = "", positionLink = "", role = "", connections = 0, steps, status = ProcessStatus.Pending, about = "", techStack = []){
         this.date = new Date();
         this.companyName = companyName;
         this.positionLink = positionLink;
