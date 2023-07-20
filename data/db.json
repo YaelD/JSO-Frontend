@@ -2,78 +2,78 @@
   "positions": [
     {
       "positionInfo": {
-        "date": "2023-07-18T08:19:17.784Z",
-        "companyName": "kjhk",
-        "positionLink": "https://www.linkedin.com/jobs/view/3555287254",
+        "date": "2023-07-18T16:29:15.030Z",
+        "companyName": "Google",
+        "positionLink": "lknfnw",
         "role": "fullStack",
         "connections": 5,
         "steps": [
           {
             "step": "Connect with people",
             "isCompletedStep": true,
-            "id": 1
+            "id": 8
           },
           {
             "step": "Send CV",
             "isCompletedStep": false,
-            "id": 2
+            "id": 9
           },
           {
             "step": "Wait for response",
             "isCompletedStep": false,
-            "id": 3
+            "id": 10
           }
         ],
-        "status": "closed process",
-        "about": "Google LLC is an American multinational technology company focusing on artificial intelligence, online advertising, search engine technology, cloud computing, computer software, quantum computing, e-commerce, and consumer electronics.",
+        "status": "pending process",
+        "about": "something",
         "techStack": [],
-        "id": 1
+        "id": 3
       },
       "interviews": [
         {
-          "date": "2023-02-15T22:00:00.000Z",
+          "date": "2023-02-14T22:00:00.000Z",
           "title": "HR interview",
           "conclusions": "need to practice more",
           "file": null,
-          "id": 1
+          "id": 5
         },
         {
           "date": "2023-02-16T22:00:00.000Z",
           "title": "Tech interview no.1",
           "conclusions": "need to do more leetcode questions",
           "file": null,
-          "id": 2
+          "id": 6
         },
         {
           "date": "2023-03-01T22:00:00.000Z",
           "title": "Tech interview no.2",
           "conclusions": "need to do more leetcode questions",
           "file": null,
-          "id": 3
+          "id": 7
         },
         {
           "date": "2023-03-14T22:00:00.000Z",
           "title": "CTO interview",
           "conclusions": "need to do more leetcode questions",
           "file": null,
-          "id": 4
+          "id": 8
         }
       ],
       "questionsAndAnswers": [
         {
           "question": "What is the tech stack?",
           "answer": "Java, MySQL, JS, React",
-          "id": 1
+          "id": 4
         },
         {
           "question": "What is the tech stack?",
           "answer": "Java, MySQL, JS, React",
-          "id": 2
+          "id": 5
         },
         {
           "question": "How many steps are there in the process?",
           "answer": "",
-          "id": 3
+          "id": 6
         }
       ],
       "homeAssignments": [
@@ -82,24 +82,30 @@
             "../testData/files/file1.docx"
           ],
           "name": "file1.docx",
-          "file": {},
-          "id": 1
+          "file": {
+            
+          },
+          "id": 4
         },
         {
           "path": [
             "../testData/files/file2.docx"
           ],
           "name": "file2.docx",
-          "file": {},
-          "id": 2
+          "file": {
+            
+          },
+          "id": 5
         },
         {
           "path": [
             "../testData/files/file3.pdf"
           ],
           "name": "file3.pdf",
-          "file": {},
-          "id": 3
+          "file": {
+            
+          },
+          "id": 6
         }
       ],
       "networkConnections": [
@@ -108,24 +114,45 @@
           "role": "Software Developer",
           "linkToLinkedin": "https://www.linkedin.com/in/yael-davidov/",
           "appliedMe": true,
-          "id": 1
+          "id": 4
         },
         {
           "name": "Eldar Sehayek",
           "role": "Senior Software Architect",
           "linkToLinkedin": "https://www.linkedin.com/in/eldar-sehayek/",
           "appliedMe": false,
-          "id": 2
+          "id": 5
         },
         {
           "name": "Matan Peretz",
           "role": "Software Developer",
           "linkToLinkedin": "https://www.linkedin.com/in/matan-peretz/",
           "appliedMe": false,
-          "id": 3
+          "id": 6
         }
       ],
-      "id": 1
+      "todoList": [
+        {
+          "todo": "hug Matan",
+          "isCompleted": false,
+          "id": 1
+        },
+        {
+          "todo": "send CV",
+          "isCompleted": true,
+          "id": 2
+        },
+        {
+          "todo": "to do home assignment",
+          "isCompleted": false,
+          "id": 3
+        },
+        {
+          "todo": "learn SQL",
+          "isCompleted": true,
+          "id": 4
+        }
+      ]
     }
   ]
 }
