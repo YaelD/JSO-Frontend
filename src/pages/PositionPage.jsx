@@ -35,8 +35,8 @@ export default function PositionPage() {
   const navigate = useNavigate();
   const [value, setValue] = useState(0);
   const position = location.state;
-  const { postNewPosition, newPosition } = usePostNewPosition();
-  const { putPosition, updatedPosition } = usePutNewPosition();
+  const { postNewPosition } = usePostNewPosition();
+  const { putPosition } = usePutNewPosition();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

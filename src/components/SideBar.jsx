@@ -4,29 +4,29 @@ import List from '@mui/material/List';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import WorkIcon from '@mui/icons-material/Work';
-import PeopleIcon from '@mui/icons-material/People';
+import HomeIcon from '@mui/icons-material/Home';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import ListItemButton from '@mui/material/ListItemButton';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 
-
-function SideBarItem({ handleListItemClick, item, isSelected}) {
+function SideBarItem({ handleListItemClick, item, isSelected }) {
 
   const location = useLocation();
 
   return (
-      <ListItemButton
-          sx={{pl: item.isInsideSubList === true ? 5 : 2 }}
-          component={RouterLink} to={item.path ?? location.pathname}
-          onClick={handleListItemClick} selected={isSelected === item.text}
-      >
-          <ListItemIcon>
-              {item.icon}
-          </ListItemIcon>
+    <ListItemButton
+      sx={{ pl: item.isInsideSubList === true ? 5 : 2 }}
+      component={RouterLink} to={item.path ?? location.pathname}
+      onClick={handleListItemClick} selected={isSelected === item.text}
+    >
+      <ListItemIcon>
+        {item.icon}
+      </ListItemIcon>
       <ListItemText primary={item.text} />
-      
-      </ListItemButton>
+
+    </ListItemButton>
   );
 }
 
@@ -43,22 +43,22 @@ class SideBarButtons {
 
 export default function SideBar() {
 
-  const [isSelected, setIsSelected] = useState("Jobs");
+  const [isSelected, setIsSelected] = useState("Home");
 
-  
   const ListOfButtons = [
+    new SideBarButtons("Home", <HomeIcon />, "/"),
     new SideBarButtons("Jobs", <WorkIcon />, "jobs"),
-    new SideBarButtons("TODOs", <PeopleIcon />, "todos"),
+    new SideBarButtons("TODOs", <CheckBoxIcon />, "todos"),
   ];
 
-  function handleListItemClick(itemText){
+  function handleListItemClick(itemText) {
     setIsSelected(itemText);
   }
 
-  function renderItem(item, index){
-    return(
-      <SideBarItem 
-        handleListItemClick={()=>{handleListItemClick(item.text);}}
+  function renderItem(item, index) {
+    return (
+      <SideBarItem
+        handleListItemClick={() => { handleListItemClick(item.text); }}
         item={item}
         isSelected={isSelected}
         key={item.text}
@@ -66,12 +66,12 @@ export default function SideBar() {
     );
   }
 
-  function renderListItems(list){
-    return(
+  function renderListItems(list) {
+    return (
       list.map((item, index) => {
         return (
           <div key={item.text}>
-          {renderItem(item, index)}
+            {renderItem(item, index)}
           </div>
         );
       })
@@ -79,20 +79,20 @@ export default function SideBar() {
   }
 
   return (
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-        }}
-      >
-        <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
-          <List>
-            {renderListItems(ListOfButtons)}
-          </List>          
-        </Box>
-      </Drawer>
+    <Drawer
+      variant="permanent"
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+      }}
+    >
+      <Toolbar />
+      <Box sx={{ overflow: 'auto' }}>
+        <List>
+          {renderListItems(ListOfButtons)}
+        </List>
+      </Box>
+    </Drawer>
   );
 }

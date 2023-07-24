@@ -4,12 +4,9 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Footer from "../components/Footer";
 import { Outlet } from "react-router-dom";
-import positions from "../testData/positionsData";
-
 
 export default function HomePage(){
 
-    const p= positions;
     return(
         <>
         <SideBar />

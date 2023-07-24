@@ -21,7 +21,7 @@ export default function PositionTodoList({position}) {
     }
 
     function handleAddNewTodo(){
-        if(todoText != ""){
+        if(todoText !== ""){
             const newTodoList = [new Todo(todoText), ...todoList];
             setTodoList(newTodoList);
             setTodoText("");

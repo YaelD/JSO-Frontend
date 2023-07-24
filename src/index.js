@@ -7,8 +7,9 @@ import ReactDOM from 'react-dom/client';
 import HomePage from './pages/HomePage';
 import RootPage from './pages/RootPage';
 import PositionPage from './pages/PositionPage';
-import { createBrowserRouter, RouterProvider} from "react-router-dom";
- 
+import DashBoardPage from './pages/DashboardPage';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
         children: [
+          {
+            path: "/",
+            element: <DashBoardPage />
+          },
           {
             path: "jobs",
             element: <Jobs />,

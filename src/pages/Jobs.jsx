@@ -4,23 +4,26 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
 import { Position } from '../utils/position';
+import { useGetAllPositions } from '../utils/apiCalls';
 
-export default function Jobs(){
+export default function Jobs() {
+
+    const { positions, isPositionsLoaded } = useGetAllPositions()
 
     return (
         <>
-            <Button 
+            <Button
                 variant="contained"
                 color='info'
                 startIcon={<AddIcon />}
-                sx={{marginBottom: 3}}
+                sx={{ marginBottom: 3 }}
                 component={Link}
                 to="/positions/new-position"
                 state={new Position()}
             >
                 Add Position
             </Button>
-            <JobsTable />
+            <JobsTable positions={positions} />
         </>
     );
 }
