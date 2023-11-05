@@ -11,7 +11,7 @@ JSO is an open-source platform for job seekers that helps users to organize and 
 - JSON Server
 
 ## Running the JSO-Fronted app
-1. Clone the [JSO-Fronted](https://github.com/YaelD/JSO-Frontend) repository via GitHub or using the command git ``` git clone https://github.com/YaelD/JSO-Frontend.git ```.
+1. Clone the [JSO-Fronted](https://github.com/YaelD/JSO-Frontend) repository via GitHub or using the git command: ``` git clone https://github.com/YaelD/JSO-Frontend.git ```.
 2. Navigate via a terminal to the cloned directory.
 3. Run `npm install` command in order to install the required dependencies.
 4. Run `npm run mock` command in order to run the JSON Server.
