@@ -2,7 +2,7 @@
 
 # JSO - Job Seeking Organizer (Frontend)
 This repository contains the fronted app of the JSO platform.
-JSO is an open-source platform for job seekers that helps users to organize and manage their job-seeking processes.
+JSO is a job-seeker platform designed to help users to organize and manage their job-seeking processes.
 
 ## Technological stack
 - React
